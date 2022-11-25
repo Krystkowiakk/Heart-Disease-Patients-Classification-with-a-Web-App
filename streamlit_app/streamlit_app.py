@@ -86,7 +86,7 @@ Let's graph some of our data with matplotlib. We can also add buttons to add int
 
 fig, ax = plt.subplots()
 
-ax.hist(data['PRICE'])
+ax.hist(data['HeartDisease'])
 ax.set_title('Distribution of House Prices in $100,000s')
 
 show_graph = st.checkbox('Show Graph', value=True)
