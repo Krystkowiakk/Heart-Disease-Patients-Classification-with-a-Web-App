@@ -70,7 +70,7 @@ We can import data into our Streamlit app using pandas `read_csv` then display t
 
 ''')
 
-data = pd.read_csv('Metis-Project-7-Engineering_on-Heart_Disease_Indicators/streamlit_app/out.csv')
+data = pd.read_csv('streamlit_app/out.csv')
 #data = data.rename(columns={'LATITUDE': 'lat', 'LONGITUDE': 'lon'})
 st.dataframe(data)
 
