@@ -36,6 +36,9 @@ feature = st.selectbox(
 fig, ax1 = plt.subplots(figsize=(10, 4))
 graph = sns.countplot(ax=ax1,x = feature , data = data, hue='HeartDisease')
 #graph.set_xticklabels(graph.get_xticklabels(),rotation=90)
+for p in graph.patches:
+    height = p.get_height()
+    graph.text(p.get_x()+p.get_width()/2., height + 0.1,height ,ha="center")
 st.pyplot(fig)
 
 
