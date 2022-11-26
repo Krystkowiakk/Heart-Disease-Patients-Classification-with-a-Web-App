@@ -4,17 +4,22 @@ import streamlit as st
 import numpy as np
 import seaborn as sns
 
+from PIL import Image
+image = Image.open('streamlit_app/i_1.png')
+st.image(image, caption='Sunrise by the mountains')
 
 st.title('Heart Disease Indicators')
-show_data = st.checkbox('Show Data', value=False)
+st.caption('From Behavioural Risk Factor Surveillance System dataset.')
 
-st.text('Loading...')
+show_data = st.checkbox('Show Raw Data', value=False)
+
+#st.text('Loading...')
 data = pd.read_csv('streamlit_app/out.csv')
-st.text('Loading...Done')
+#st.text('Loading...Done')
 
 if show_data:
     st.subheader('Raw Data')
-    st.text('Loading...')
+    st.caption('The dataset originally comes from the CDC and is a major part of the Behavioural Risk Factor Surveillance System (BRFSS), which conducts annual telephone surveys to gather data on the health status of U.S. residents. BRFSS completes more than 400,000 adult interviews each year, making it the largest continuously conducted health survey system in the world.". The most recent dataset (as of February 15, 2022) includes data from 2020.')
     st.dataframe(data.drop(columns=['Unnamed: 0']))
 
 #hist_values = np.histogram(data['HeartDisease'], bins = 2)[0]
