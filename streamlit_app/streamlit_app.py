@@ -25,19 +25,28 @@ if show_data:
 #hist_values = np.histogram(data['HeartDisease'], bins = 2)[0]
 #st.bar_chart(hist_values)
 
+st.subheader('Target Distibution')
+st.caption('The dataset is unbalaced as we there is more healthy people than ones having heart desease.')
+
 fig = plt.figure(figsize=(10, 4))
-sns.countplot(x='HeartDisease', data=data)
+graph = sns.countplot(x='HeartDisease', data=data)
+for p in graph.patches:
+    height = int(p.get_height())
+    graph.text(p.get_x()+p.get_width()/2., height + 0.1,height ,ha="center")
+
 st.pyplot(fig)
 
+st.subheader('Heart Disease vs Diferent Features')
+st.caption('How heart disease is releated to deferent features from dataset?')
 
 feature = st.selectbox(
-    'What would you like to see?',
+    'Choose:',
     ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer'))
 fig, ax1 = plt.subplots(figsize=(10, 4))
 graph = sns.countplot(ax=ax1,x = feature , data = data, hue='HeartDisease')
 #graph.set_xticklabels(graph.get_xticklabels(),rotation=90)
 for p in graph.patches:
-    height = p.get_height()
+    height = int(p.get_height())
     graph.text(p.get_x()+p.get_width()/2., height + 0.1,height ,ha="center")
 st.pyplot(fig)
 
