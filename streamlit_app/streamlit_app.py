@@ -6,7 +6,7 @@ import seaborn as sns
 
 from PIL import Image
 image = Image.open('streamlit_app/i_1.png')
-st.image(image, caption='Sunrise by the mountains')
+st.image(image)
 
 st.title('Heart Disease Indicators')
 st.caption('From Behavioural Risk Factor Surveillance System dataset.')
