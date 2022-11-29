@@ -29,12 +29,26 @@ if show_data:
 st.subheader('Target Distibution')
 st.caption('The dataset is unbalaced as we there is more healthy people than ones having heart desease.') #better as pieplot?
 
-fig = plt.figure(figsize=(10, 4))
-graph = sns.countplot(x='HeartDisease', data=data)
-for p in graph.patches:
-    height = int(p.get_height())
-    graph.text(p.get_x()+p.get_width()/2., height + 0.1,height ,ha="center")
-st.pyplot(fig)
+#fig = plt.figure(figsize=(10, 4))
+#graph = sns.countplot(x='HeartDisease', data=data)
+#for p in graph.patches:
+#    height = int(p.get_height())
+#    graph.text(p.get_x()+p.get_width()/2., height + 0.1,height ,ha="center")
+#st.pyplot(fig)
+
+import matplotlib.ticker as mtick
+s = data['HeartDisease'].value_counts(normalize=True, sort=False).mul(100)
+fig2 = plt.figure(figsize = (10,4))
+ax = sns.barplot(x=s.index, y=s)
+ax.set(ylabel='percent', xlabel='x')
+ax.yaxis.set_major_formatter(mtick.PercentFormatter())
+for i, p in enumerate(ax.patches):
+    percentage = '{:.1f}%'.format(s[i])
+    x = p.get_x() + 0.4
+    y = p.get_height()
+    ax.annotate(percentage, (x, y), ha='center')
+st.pyplot(fig2)
+
 
 st.subheader('Heart Disease vs Diferent Features')
 st.caption('How heart disease is releated to deferent features from dataset?')
