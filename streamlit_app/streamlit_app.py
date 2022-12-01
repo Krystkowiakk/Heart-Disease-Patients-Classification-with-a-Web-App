@@ -21,18 +21,38 @@ with st.sidebar.form("my_form"):
    GenHealth = st.selectbox("General Health", ('Excellent', 'Very good', 'Good', 'Fair', 'Poor'))
    PhysicalActivity = st.selectbox("Phisical Activity", ("Yes", "No"))
    SleepTime = st.slider('Sleep Time?', 1.0, 24.0, (7.0), step=1.0)  #check standard measures
-   Smoking = st.checkbox('Smoking')
-   AlcoholDrinking = st.checkbox('Alcohol Drinking')
-   Stroke = st.checkbox('Stroke')
+   Smoking = int(st.checkbox('Smoking'))
+   AlcoholDrinking = int(st.checkbox('Alcohol Drinking'))
+   Stroke = int(st.checkbox('Stroke'))
    #PhysicalHealth and MentalHealth -> exclude as dificult to express and not a strong features?
-   DiffWalking = st.checkbox('Difficulties with Walking')
-   Asthma = st.checkbox('Asthma')
-   KidneyDisease = st.checkbox('Kidney Disease')
-   SkinCancer = st.checkbox('Skin Cancer')  
+   DiffWalking = int(st.checkbox('Difficulties with Walking'))
+   Asthma = int(st.checkbox('Asthma'))
+   KidneyDisease = int(st.checkbox('Kidney Disease'))
+   SkinCancer = int(st.checkbox('Skin Cancer'))
    Diabetic = st.selectbox("Diabetic", options=(i for i in data.Diabetic.unique()))
    submitted = st.form_submit_button("Submit")
    if submitted:
-       st.write("BMI", Sex, "checkbox", AgeCategory)
+        input_data = {
+            'BMI': [BMI],
+            'Smoking': [Smoking],
+            'AlcoholDrinking': [AlcoholDrinking],
+            'Stroke': [Stroke],
+            'DiffWalking': [DiffWalking],
+            'Sex': [Sex],
+            'PhysicalActivity': [PhysicalActivity],
+            'SleepTime': [SleepTime],
+            'Asthma': [Asthma],
+            'KidneyDisease': [KidneyDisease],
+            'SkinCancer': [SkinCancer],
+            'AgeCategory': [AgeCategory],
+            'Race': [Race],
+            'Diabetic': [Diabetic],
+            'GenHealth': [GenHealth]
+        }
+        df_check = pd.DataFrame(data = input_data)
+        df_check =  df_check.replace({'Yes':1, 'No':0, 'Female':1,'Male':0 })
+#        df_check = pd.get_dummies(df_check, columns=['AgeCategory','Race','Diabetic', 'GenHealth'], drop_first=True)
+        st.dataframe(df_check)
 
 image = Image.open('streamlit_app/i_1.png')
 st.image(image)
@@ -95,17 +115,6 @@ for p in graph.patches:
     y = p.get_height()
     graph.annotate(percentage, (x, y),ha='center')
 st.pyplot(fig)
-
-# feature = st.selectbox(
-#    'How heart disease is releated to deferent features from dataset?',
-#    ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'Race'))
-# fig, ax1 = plt.subplots(figsize=(10, 4))
-# graph = sns.countplot(ax=ax1,x = feature , data = data, hue='HeartDisease')
-# ##graph.set_xticklabels(graph.get_xticklabels(),rotation=90)
-# for p in graph.patches:
-#   height = int(p.get_height())
-#   graph.text(p.get_x()+p.get_width()/2., height + 0.1,height ,ha="center")
-# st.pyplot(fig)
 
 st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
 st.caption('And how heart disease is releated to age and lifestyle?')
