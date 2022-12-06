@@ -4,6 +4,8 @@ import streamlit as st
 import numpy as np
 import seaborn as sns
 from PIL import Image
+import pickle
+from sklearn.preprocessing import StandardScaler
 
 #st.text('Loading...')
 data = pd.read_csv('streamlit_app/out.csv')
@@ -11,12 +13,12 @@ data = pd.read_csv('streamlit_app/out.csv')
 
 
 with st.sidebar.form("my_form"):
-   st.write("Check if you should visit the doctor yourself!")
+   st.write("Check if you should visit the doctor!")
    Sex = st.selectbox("Sex", ("Female", "Male"))
    AgeCategory = st.selectbox("Age Category", ('18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'))
    Race = st.selectbox("Race", ('White', 'Asian', 'Hispanic', 'Black', 'American Indian/Alaskan Native', 'Other'))
-   f_height = st.slider('Height?', 50.0, 230.0, (160.0), step=1.0) #check standard measures
-   f_weight = st.slider('Weight?', 35.0, 200.0, (65.0), step=1.0)  #check standard measures
+   f_height = st.slider('Height? (kg)', 50.0, 230.0, (160.0), step=1.0) #check standard measures
+   f_weight = st.slider('Weight? (cm)', 35.0, 200.0, (65.0), step=1.0)  #check standard measures
    BMI = 10000*f_weight/(f_height)**2
    GenHealth = st.selectbox("General Health", ('Excellent', 'Very good', 'Good', 'Fair', 'Poor'))
    PhysicalActivity = st.selectbox("Phisical Activity", ("Yes", "No"))
@@ -44,15 +46,21 @@ with st.sidebar.form("my_form"):
             'Asthma': [Asthma],
             'KidneyDisease': [KidneyDisease],
             'SkinCancer': [SkinCancer],
-            'AgeCategory': [AgeCategory],
-            'Race': [Race],
-            'Diabetic': [Diabetic],
-            'GenHealth': [GenHealth]
+#            'AgeCategory': [AgeCategory],
+#            'Race': [Race],
+#            'Diabetic': [Diabetic],
+#            'GenHealth': [GenHealth]
         }
         df_check = pd.DataFrame(data = input_data)
         df_check =  df_check.replace({'Yes':1, 'No':0, 'Female':1,'Male':0 })
 #        df_check = pd.get_dummies(df_check, columns=['AgeCategory','Race','Diabetic', 'GenHealth'], drop_first=True)
-        st.dataframe(df_check)
+        scalar = pickle.load(open('scaled.pkl', 'rb'))
+        df_check_scal = scalar.transform(df_check)
+#        st.dataframe(df_check_scal)
+        model = pickle.load(open('model.pkl', 'rb'))
+        prediction = model.predict_proba(df_check_scal)
+        st.title(f"{round(prediction[0][1] * 100, 2)}% probability of Heart Disease")
+        st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
 
 image = Image.open('streamlit_app/i_1.png')
 st.image(image)
