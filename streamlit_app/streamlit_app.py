@@ -36,7 +36,6 @@ with st.sidebar.form("my_form"):
    Smoking = int(st.checkbox('Smoking'))
    AlcoholDrinking = int(st.checkbox('Alcohol Drinking'))
    Stroke = int(st.checkbox('Stroke'))
-   #PhysicalHealth and MentalHealth -> exclude as dificult to express and not a strong features?
    DiffWalking = int(st.checkbox('Difficulties with Walking'))
    Asthma = int(st.checkbox('Asthma'))
    KidneyDisease = int(st.checkbox('Kidney Disease'))
@@ -79,7 +78,7 @@ with st.sidebar.form("my_form"):
             st.title("Better visit the doctor!")
         else:
             st.title("Seems like you are fine")
-        #st.title(f"{round(prediction[0][1] * 100, 2)}% probability of Heart Disease")
+        st.title(f"{round(prediction[0][1] * 100, 2)}% probability of Heart Disease")
         st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
 
 image = Image.open('streamlit_app/i_1.png')
