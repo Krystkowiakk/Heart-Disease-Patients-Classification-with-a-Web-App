@@ -75,7 +75,11 @@ with st.sidebar.form("my_form"):
 #        st.dataframe(df_check_scal)
         model = pickle.load(open('streamlit_app/model.pkl', 'rb'))
         prediction = model.predict_proba(df_check_scal)
-        st.title(f"{round(prediction[0][1] * 100, 2)}% probability of Heart Disease")
+        if prediction[0][1] >= 0.08: #treshold adjusted during model tuning
+            st.title("Better visit the doctor!")
+        else:
+            st.title("Seems like you are fine")
+        #st.title(f"{round(prediction[0][1] * 100, 2)}% probability of Heart Disease")
         st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
 
 image = Image.open('streamlit_app/i_1.png')
