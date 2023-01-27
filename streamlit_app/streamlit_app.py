@@ -78,7 +78,6 @@ with st.sidebar.form("my_form"):
             st.title("Better visit the doctor!")
         else:
             st.title("Seems like you are fine")
-        st.title(f"{round(prediction[0][1] * 100, 2)}% probability of Heart Disease")
         st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
 
 image = Image.open('streamlit_app/i_1.png')
