@@ -106,24 +106,32 @@ if show_data:
         ax.annotate(percentage, (x, y), ha='center')
     st.pyplot(fig)
 
-st.subheader('Heart Disease depending on diferent Features')
-feature = 'AlcoholDrinking'
+
+st.subheader('Heart Disease depending on Alcohol Drinking')
 
 fig, ax = plt.subplots(figsize=(10, 4))
 
-#create a new dataframe to calculate the percentages
+# create a new dataframe to calculate the percentages
+drinkers = data[data['AlcoholDrinking'] == 'Yes']
+non_drinkers = data[data['AlcoholDrinking'] == 'No']
 
-df = data.groupby([feature, 'HeartDisease']).size().reset_index(name='counts')
-df['percent'] = df.apply(lambda row: (row['counts']/df[df[feature]==row[feature]]['counts'].sum())*100, axis=1)
+drinkers_count = len(drinkers)
+non_drinkers_count = len(non_drinkers)
 
-#create the bar plot
+drinkers_hd = len(drinkers[drinkers['HeartDisease'] == 'Yes'])
+non_drinkers_hd = len(non_drinkers[non_drinkers['HeartDisease'] == 'Yes'])
 
-fig, ax1 = plt.subplots(figsize=(10, 4))
-sns.barplot(x=feature, y='percent', hue='HeartDisease', data=df, ax=ax1)
+drinkers_percent = (drinkers_hd / drinkers_count) * 100
+non_drinkers_percent = (non_drinkers_hd / non_drinkers_count) * 100
 
-#format the y-axis to show percentages
+df = pd.DataFrame({'AlcoholDrinking': ['Yes', 'No'], 'HeartDisease': [drinkers_percent, non_drinkers_percent]})
 
-ax1.yaxis.set_major_formatter(mtick.PercentFormatter())
+# create the bar plot
+sns.barplot(x='AlcoholDrinking', y='HeartDisease', data=df, ax=ax)
+
+# format the y-axis to show percentages
+ax.yaxis.set_major_formatter(mtick.PercentFormatter())
+
 st.pyplot(fig)
 
 
