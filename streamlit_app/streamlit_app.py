@@ -107,15 +107,32 @@ if show_data:
     st.pyplot(fig)
 
 
-st.subheader('Heart Disease depending on Drinking')
+st.subheader('Heart Disease depending on Different Features')
+feature = st.selectbox(
+   'How heart disease is related to different features from dataset?',
+   ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
+
+st.subheader(f'Heart Disease depending on {feature}')
+
+fig, ax = plt.subplots(figsize=(10, 4))
 
 # create a new dataframe to calculate the percentages
-df = data.groupby(['AlcoholDrinking', 'HeartDisease']).size().reset_index(name='counts')
-df['percent'] = df.apply(lambda row: (row['counts']/df[df['AlcoholDrinking']==row['AlcoholDrinking']]['counts'].sum())*100, axis=1)
+feature_yes = data[data[feature] == 'Yes']
+feature_no = data[data[feature] == 'No']
+
+feature_yes_count = len(feature_yes)
+feature_no_count = len(feature_no)
+
+feature_yes_hd = len(feature_yes[feature_yes['HeartDisease'] == 'Yes'])
+feature_no_hd = len(feature_no[feature_no['HeartDisease'] == 'Yes'])
+
+feature_yes_percent = (feature_yes_hd / feature_yes_count) * 100
+feature_no_percent = (feature_no_hd / feature_no_count) * 100
+
+df = pd.DataFrame({feature: ['Yes', 'No'], 'HeartDisease': [feature_yes_percent, feature_no_percent]})
 
 # create the bar plot
-fig, ax = plt.subplots(figsize=(10, 4))
-sns.barplot(x='AlcoholDrinking', y='percent', hue='HeartDisease', data=df, ax=ax)
+sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 
 # format the y-axis to show percentages
 ax.yaxis.set_major_formatter(mtick.PercentFormatter())
