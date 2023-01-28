@@ -106,23 +106,15 @@ if show_data:
         ax.annotate(percentage, (x, y), ha='center')
     st.pyplot(fig)
 
-st.subheader('Heart Disease vs Drinking')
+st.subheader('Heart Disease vs Different Features')
+feature = st.selectbox(
+   'How heart disease is related to different features from dataset?',
+   ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
 
-data_drinking = data[data["AlcoholDrinking"] == "Yes"]
-data_not_drinking = data[data["AlcoholDrinking"] == "No"]
+fig, ax1 = plt.subplots(figsize=(10, 4))
+graph = sns.barplot(x=feature, y="HeartDisease", data=data, hue='HeartDisease')
+graph.set(ylabel="Heart Disease Incidence")
 
-yes_count_drinking = len(data_drinking[data_drinking["HeartDisease"] == "Yes"])
-yes_count_not_drinking = len(data_not_drinking[data_not_drinking["HeartDisease"] == "Yes"])
-
-total_count_drinking = len(data_drinking)
-total_count_not_drinking = len(data_not_drinking)
-
-yes_percentage_drinking = (yes_count_drinking / total_count_drinking) * 100
-yes_percentage_not_drinking = (yes_count_not_drinking / total_count_not_drinking) * 100
-
-fig, ax = plt.subplots(figsize=(10, 4))
-ax.bar(["Drinking", "Not Drinking"], [yes_percentage_drinking, yes_percentage_not_drinking], color=["#e74c3c" if x > 0 else "gray" for x in [yes_percentage_drinking, yes_percentage_not_drinking]])
-ax.set_ylabel("Heart Disease (%)")
 st.pyplot(fig)
 
 st.subheader('Heart Disease vs Different Features')
