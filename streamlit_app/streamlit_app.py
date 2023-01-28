@@ -106,16 +106,22 @@ if show_data:
         ax.annotate(percentage, (x, y), ha='center')
     st.pyplot(fig)
 
-st.subheader('Heart Disease vs Different Features')
-feature = st.selectbox(
-   'How heart disease is related to different features from dataset?',
-   ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
+st.subheader('Heart Disease vs ' + feature)
 
-fig, ax1 = plt.subplots(figsize=(10, 4))
-graph = sns.barplot(x=feature, y="HeartDisease", data=data, hue='HeartDisease')
-graph.set(ylabel="Heart Disease Incidence")
+fig, ax = plt.subplots(figsize=(10, 4))
+
+# Create a new column that indicates whether the selected feature is present or not
+data['FeaturePresent'] = data[feature].apply(lambda x: 1 if x > 0 else 0)
+
+# Use the barplot() function to create a bar chart
+sns.barplot(x='FeaturePresent', y='HeartDisease', data=data, ci='sd')
+
+# Add labels to the x-axis and y-axis
+plt.xlabel('Feature Present')
+plt.ylabel('Heart Disease Incidence')
 
 st.pyplot(fig)
+
 
 st.subheader('Heart Disease vs Different Features')
 feature = st.selectbox(
