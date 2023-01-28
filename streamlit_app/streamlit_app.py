@@ -106,7 +106,10 @@ if show_data:
         ax.annotate(percentage, (x, y), ha='center')
     st.pyplot(fig)
 
-st.subheader('Heart Disease vs ' + feature)
+st.subheader('Heart Disease vs Different Features')
+feature = st.selectbox(
+   'How heart disease is related to different features from dataset?',
+   ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
 
 fig, ax = plt.subplots(figsize=(10, 4))
 
@@ -123,22 +126,22 @@ plt.ylabel('Heart Disease Incidence')
 st.pyplot(fig)
 
 
-st.subheader('Heart Disease vs Different Features')
-feature = st.selectbox(
-   'How heart disease is related to different features from dataset?',
-   ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
+# st.subheader('Heart Disease vs Different Features')
+# feature = st.selectbox(
+#    'How heart disease is related to different features from dataset?',
+#    ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
 
-fig, ax1 = plt.subplots(figsize=(10, 4))
-total = len(data)
-graph = sns.countplot(ax=ax1, x=feature, data=data, hue='HeartDisease')
-graph.set(ylabel="")
-graph.set(yticklabels=[])
+# fig, ax1 = plt.subplots(figsize=(10, 4))
+# total = len(data)
+# graph = sns.countplot(ax=ax1, x=feature, data=data, hue='HeartDisease')
+# graph.set(ylabel="")
+# graph.set(yticklabels=[])
 
-for p in graph.patches:
-    percentage = '{:.1f}%'.format(100 * p.get_height() / total)
-    x = p.get_x() + p.get_width() / 2
-    y = p.get_height()
-    graph.annotate(percentage, (x, y), ha='center')
+# for p in graph.patches:
+#     percentage = '{:.1f}%'.format(100 * p.get_height() / total)
+#     x = p.get_x() + p.get_width() / 2
+#     y = p.get_height()
+#     graph.annotate(percentage, (x, y), ha='center')
 
 st.pyplot(fig)
 
