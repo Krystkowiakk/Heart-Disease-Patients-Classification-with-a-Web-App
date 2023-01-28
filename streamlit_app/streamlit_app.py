@@ -6,6 +6,7 @@ import seaborn as sns
 from PIL import Image
 import pickle
 from sklearn.preprocessing import StandardScaler
+import matplotlib.ticker as mtick
 
 #st.text('Loading...')
 data = pd.read_csv('streamlit_app/out.csv')
@@ -88,46 +89,42 @@ st.caption('From Behavioural Risk Factor Surveillance System dataset.')
 
 show_data = st.checkbox('Show Raw Data & Target Distribution', value=False)
 
-
 if show_data:
-    st.subheader('Raw Data')
-    st.caption('The dataset originally comes from the CDC and is a major part of the Behavioural Risk Factor Surveillance System (BRFSS), which conducts annual telephone surveys to gather data on the health status of U.S. residents. BRFSS completes more than 400,000 adult interviews each year, making it the largest continuously conducted health survey system in the world.". The most recent dataset (as of February 15, 2022) includes data from 2020.')
-    st.dataframe(data.drop(columns=['Unnamed: 0']))
-    st.subheader('Target Distribution')
-    st.caption('The dataset is unbalanced as there is more healthy people than ones having heart disease.')
-    import matplotlib.ticker as mtick
-    s = data['HeartDisease'].value_counts(normalize=True, sort=False).mul(100)
-    fig = plt.figure(figsize = (10,4))
-    ax = sns.barplot(x=s.index, y=s)
-    ax.set(ylabel="", xlabel='HeartDisease')
-    ax.set(yticklabels=[])
-    for i, p in enumerate(ax.patches):
-        percentage = '{:.1f}%'.format(s[i])
-        x = p.get_x() + 0.4
-        y = p.get_height()
-        ax.annotate(percentage, (x, y), ha='center')
-    st.pyplot(fig)
+st.subheader('Raw Data')
+st.caption('The dataset originally comes from the CDC and is a major part of the Behavioural Risk Factor Surveillance System (BRFSS), which conducts annual telephone surveys to gather data on the health status of U.S. residents. BRFSS completes more than 400,000 adult interviews each year, making it the largest continuously conducted health survey system in the world.". The most recent dataset (as of February 15, 2022) includes data from 2020.')
+st.dataframe(data.drop(columns=['Unnamed: 0']))
+st.subheader('Target Distribution')
+st.caption('The dataset is unbalanced as there is more healthy people than ones having heart disease.')
+s = data['HeartDisease'].value_counts(normalize=True, sort=False).mul(100)
+fig = plt.figure(figsize = (10,4))
+ax = sns.barplot(x=s.index, y=s)
+ax.set(ylabel="", xlabel='HeartDisease')
+ax.set(yticklabels=[])
+for i, p in enumerate(ax.patches):
+    percentage = '{:.1f}%'.format(s[i])
+    x = p.get_x() + 0.4
+    y = p.get_height()
+    ax.annotate(percentage, (x, y), ha='center')
+st.pyplot(fig)
 
-
-
-
-
-st.subheader('Heart Disease vs Diferent Features')
+st.subheader('Heart Disease vs Different Features')
 
 feature = st.selectbox(
-   'How heart disease is releated to deferent features from dataset?',
-   ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'PhysicalActivity', 'GenHealth', 'Race'))
+   'How heart disease is related to different features from dataset?',
+   ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
+
 fig, ax1 = plt.subplots(figsize=(10, 4))
-total = float(len(data))
-graph = sns.countplot(ax=ax1,x = feature , data = data, hue='HeartDisease')
+total = len(data)
+graph = sns.countplot(ax=ax1, x=feature, data=data, hue='HeartDisease')
 graph.set(ylabel="")
 graph.set(yticklabels=[])
-#graph.yaxis.set_major_formatter(mtick.PercentFormatter())
+
 for p in graph.patches:
-    percentage = '{:.1f}%'.format(100 * p.get_height()/total)
-    x = p.get_x() + p.get_width()/2
+    percentage = '{:.1f}%'.format(100 * p.get_height() / total)
+    x = p.get_x() + p.get_width() / 2
     y = p.get_height()
-    graph.annotate(percentage, (x, y),ha='center')
+    graph.annotate(percentage, (x, y), ha='center')
+
 st.pyplot(fig)
 
 st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
