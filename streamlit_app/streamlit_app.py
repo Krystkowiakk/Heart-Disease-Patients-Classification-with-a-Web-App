@@ -119,22 +119,13 @@ df['percent'] = df.apply(lambda row: (row['counts']/df[df[feature]==row[feature]
 
 # create the bar plot
 fig, ax1 = plt.subplots(figsize=(10, 4))
-sns.barplot(x=feature, y='percent', hue='HeartDisease', data=df, ax=ax1)
-
-# format the y-axis to show percentages
+sns.barplot(x=feature, y='percent', hue='HeartDisease', data=df[df['HeartDisease']==0], ax=ax1)
+sns.barplot(x=feature, y='percent', hue='HeartDisease', data=df[df['HeartDisease']==1], ax=ax1)
+ax1.legend(labels=['No Heart Disease','Heart Disease'])
+ax1.set_ylabel("Percentage")
 ax1.yaxis.set_major_formatter(mtick.PercentFormatter())
-
 st.pyplot(fig)
 
-
-# Use the barplot() function to create a bar chart
-sns.barplot(x='FeaturePresent', y='HeartDisease', data=data, ci='sd')
-
-# Add labels to the x-axis and y-axis
-plt.xlabel('Feature Present')
-plt.ylabel('Heart Disease Incidence')
-
-st.pyplot(fig)
 
 
 # st.subheader('Heart Disease vs Different Features')
