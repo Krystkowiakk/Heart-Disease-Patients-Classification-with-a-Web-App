@@ -153,7 +153,7 @@ st.pyplot(fig)
 #     y = p.get_height()
 #     graph.annotate(percentage, (x, y), ha='center')
 
-st.pyplot(fig)
+#st.pyplot(fig)
 
 st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
 st.caption('And how heart disease is releated to age and lifestyle?')
