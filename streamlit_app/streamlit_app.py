@@ -107,22 +107,22 @@ if show_data:
     st.pyplot(fig)
 
 st.subheader('Heart Disease depending on diferent Features')
-feature = st.selectbox(
-   'How heart disease is related to different features from dataset?',
-   ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
+feature = 'AlcoholDrinking'
 
 fig, ax = plt.subplots(figsize=(10, 4))
 
-# create a new dataframe to calculate the percentages
+#create a new dataframe to calculate the percentages
+
 df = data.groupby([feature, 'HeartDisease']).size().reset_index(name='counts')
 df['percent'] = df.apply(lambda row: (row['counts']/df[df[feature]==row[feature]]['counts'].sum())*100, axis=1)
 
-# create the bar plot
+#create the bar plot
+
 fig, ax1 = plt.subplots(figsize=(10, 4))
-sns.barplot(x=feature, y='percent', hue='HeartDisease', data=df[df['HeartDisease']==0], ax=ax1)
-sns.barplot(x=feature, y='percent', hue='HeartDisease', data=df[df['HeartDisease']==1], ax=ax1)
-ax1.legend(labels=['No Heart Disease','Heart Disease'])
-ax1.set_ylabel("Percentage")
+sns.barplot(x=feature, y='percent', hue='HeartDisease', data=df, ax=ax1)
+
+#format the y-axis to show percentages
+
 ax1.yaxis.set_major_formatter(mtick.PercentFormatter())
 st.pyplot(fig)
 
