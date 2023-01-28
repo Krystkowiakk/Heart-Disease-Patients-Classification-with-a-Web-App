@@ -106,15 +106,26 @@ if show_data:
         ax.annotate(percentage, (x, y), ha='center')
     st.pyplot(fig)
 
-st.subheader('Heart Disease vs Different Features')
+st.subheader('Heart Disease depending on diferent Features')
 feature = st.selectbox(
    'How heart disease is related to different features from dataset?',
    ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
 
 fig, ax = plt.subplots(figsize=(10, 4))
 
-# Create a new column that indicates whether the selected feature is present or not
-data['FeaturePresent'] = data[feature].apply(lambda x: 1 if x > 0 else 0)
+# create a new dataframe to calculate the percentages
+df = data.groupby([feature, 'HeartDisease']).size().reset_index(name='counts')
+df['percent'] = df.apply(lambda row: (row['counts']/df[df[feature]==row[feature]]['counts'].sum())*100, axis=1)
+
+# create the bar plot
+fig, ax1 = plt.subplots(figsize=(10, 4))
+sns.barplot(x=feature, y='percent', hue='HeartDisease', data=df, ax=ax1)
+
+# format the y-axis to show percentages
+ax1.yaxis.set_major_formatter(mtick.PercentFormatter())
+
+st.pyplot(fig)
+
 
 # Use the barplot() function to create a bar chart
 sns.barplot(x='FeaturePresent', y='HeartDisease', data=data, ci='sd')
