@@ -112,8 +112,8 @@ st.subheader('Heart Disease depending on Alcohol Drinking')
 fig, ax = plt.subplots(figsize=(10, 4))
 
 # create a new dataframe to calculate the percentages
-drinkers = data[data['AlcoholDrinking'] == 'Yes']
-non_drinkers = data[data['AlcoholDrinking'] == 'No']
+drinkers = data[data['Smoking'] == 'Yes']
+non_drinkers = data[data['Smoking'] == 'No']
 
 drinkers_count = len(drinkers)
 non_drinkers_count = len(non_drinkers)
@@ -124,10 +124,10 @@ non_drinkers_hd = len(non_drinkers[non_drinkers['HeartDisease'] == 'Yes'])
 drinkers_percent = (drinkers_hd / drinkers_count) * 100
 non_drinkers_percent = (non_drinkers_hd / non_drinkers_count) * 100
 
-df = pd.DataFrame({'AlcoholDrinking': ['Yes', 'No'], 'HeartDisease': [drinkers_percent, non_drinkers_percent]})
+df = pd.DataFrame({'Smoking': ['Yes', 'No'], 'HeartDisease': [drinkers_percent, non_drinkers_percent]})
 
 # create the bar plot
-sns.barplot(x='AlcoholDrinking', y='HeartDisease', data=df, ax=ax)
+sns.barplot(x='Smoking', y='HeartDisease', data=df, ax=ax)
 
 # format the y-axis to show percentages
 ax.yaxis.set_major_formatter(mtick.PercentFormatter())
