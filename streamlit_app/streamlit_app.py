@@ -88,7 +88,6 @@ st.title('Heart Disease Indicators')
 st.caption('From Behavioural Risk Factor Surveillance System dataset.')
 
 show_data = st.checkbox('Show Raw Data & Target Distribution', value=False)
-
 if show_data:
     st.subheader('Raw Data')
     st.caption('The dataset originally comes from the CDC and is a major part of the Behavioural Risk Factor Surveillance System (BRFSS), which conducts annual telephone surveys to gather data on the health status of U.S. residents. BRFSS completes more than 400,000 adult interviews each year, making it the largest continuously conducted health survey system in the world.". The most recent dataset (as of February 15, 2022) includes data from 2020.')
@@ -108,24 +107,38 @@ if show_data:
     st.pyplot(fig)
 
 st.subheader('Heart Disease vs Different Features')
-
 feature = st.selectbox(
    'How heart disease is related to different features from dataset?',
    ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
 
+yes_count = data[data['HeartDisease'] == 1][feature].value_counts()
+no_count = data[data['HeartDisease'] == 0][feature].value_counts()
+
+yes_percent = (yes_count / (yes_count + no_count)) * 100
+no_percent = (no_count / (yes_count + no_count)) * 100
+
 fig, ax1 = plt.subplots(figsize=(10, 4))
-total = len(data)
+
 graph = sns.countplot(ax=ax1, x=feature, data=data, hue='HeartDisease')
 graph.set(ylabel="")
 graph.set(yticklabels=[])
 
+# Add the percentage values to the legend
+handles, labels = ax1.get_legend_handles_labels()
+yes_label = f'Yes (%.1f%%)' % (yes_percent[1])
+no_label = f'No (%.1f%%)' % (no_percent[0])
+graph.legend(handles, [yes_label, no_label])
+
+# Add the percentage values to the x-axis
 for p in graph.patches:
-    percentage = '{:.1f}%'.format(100 * p.get_height() / total)
-    x = p.get_x() + p.get_width() / 2
-    y = p.get_height()
-    graph.annotate(percentage, (x, y), ha='center')
+    if p.get_height() > 0:
+        percentage = '{:.1f}%'.format(100 * p.get_height() / total)
+        x = p.get_x() + p.get_width() / 2
+        y = p.get_height()
+        graph.annotate(percentage, (x, y), ha='center')
 
 st.pyplot(fig)
+
 
 st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
 st.caption('And how heart disease is releated to age and lifestyle?')
