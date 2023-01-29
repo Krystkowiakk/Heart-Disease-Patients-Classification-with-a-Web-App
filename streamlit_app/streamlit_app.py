@@ -103,17 +103,17 @@ for value in unique_values:
 # create the bar plot
 sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 ax.set(ylabel="Heart Disease (%)")
-#fig.set(yticklabels=[])
+ax.set(yticklabels=[])
 a = ax.get_xticklabels()
 for tick in a:
     if tick.get_text() == 'American Indian/Alaskan Native':
         tick.set_text('Amer.Indian/Alaskan')
 ax.set_xticklabels(a)
 # #this part is for annotating the bars with the percentage
-# for pf in fig.containers[0].patches:
-#     graph.annotate("%.2f%%" % f.get_height(), (f.get_x() + f.get_width() / 2., f.get_height()),
-#                  ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
-#                  textcoords='offset points')
+for p in ax.containers[0].patches:
+    graph.annotate("%.2f%%" % f.get_height(), (f.get_x() + f.get_width() / 2., f.get_height()),
+                 ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
+                 textcoords='offset points')
 st.pyplot(fig)
 
 
