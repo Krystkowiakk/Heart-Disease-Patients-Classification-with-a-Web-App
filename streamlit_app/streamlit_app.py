@@ -102,7 +102,7 @@ for value in unique_values:
     df = df.append({feature: value, 'HeartDisease': percent}, ignore_index=True)
 # create the bar plot
 if feature == 'GenHealth':
-    sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax, order=['GenHealth_Poor', 'GenHealth_Fair', 'GenHealth_Good', 'GenHealth_Very good', 'GenHealth_Excellent'])
+    sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax, order=['Excellent', 'Very good', 'Good', 'Fair', 'Poor'])
 else:
     sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 ax.set(ylabel="Heart Disease (%)")
