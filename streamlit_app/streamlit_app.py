@@ -102,8 +102,8 @@ for value in unique_values:
     df = df.append({feature: value, 'HeartDisease': percent}, ignore_index=True)
 # create the bar plot
 sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
-# graph.set(ylabel="Heart Disease (%)")
-# graph.set(yticklabels=[])
+graph.set(ylabel="Heart Disease (%)")
+graph.set(yticklabels=[])
 a = ax.get_xticklabels()
 for tick in a:
     if tick.get_text() == 'American Indian/Alaskan Native':
