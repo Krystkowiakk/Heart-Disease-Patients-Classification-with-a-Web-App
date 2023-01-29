@@ -8,10 +8,12 @@ import pickle
 #from sklearn.preprocessing import StandardScaler
 import matplotlib.ticker as mtick
 
-#st.text('Loading...')
+#data loading
+st.text('Loading...')
 data = pd.read_csv('streamlit_app/out.csv')
-#st.text('Loading...Done')
+st.text('Loading...Done')
 
+#dummy variables for categorical features generation
 def dum_gen(col, lis):
     for l in lis:
         if df_check[col][0] == l:
@@ -19,6 +21,7 @@ def dum_gen(col, lis):
         else:
             df_check[l] = 0
 
+#sidebar form for user input and prediction
 with st.sidebar.form("my_form"):
    st.write("Check if you should visit the doctor!")
    Sex = st.selectbox("Sex", ("Female", "Male"))
@@ -68,11 +71,8 @@ with st.sidebar.form("my_form"):
         dum_gen('GenHealth',['GenHealth_Excellent','GenHealth_Fair', 'GenHealth_Good', 'GenHealth_Poor', 'GenHealth_Very good'])
         df_check = df_check.drop(columns=['AgeCategory','Race','Diabetic', 'GenHealth'])
         df_check =  df_check.replace({'Yes':1, 'No':0, 'Female':1,'Male':0 })
-#        df_check = pd.get_dummies(df_check, columns=['AgeCategory','Race','Diabetic', 'GenHealth'], drop_first=True)
-#        st.dataframe(df_check)
         scalar = pickle.load(open('streamlit_app/scaled.pkl', 'rb'))
         df_check_scal = scalar.transform(df_check)
-#        st.dataframe(df_check_scal)
         model = pickle.load(open('streamlit_app/model.pkl', 'rb'))
         prediction = model.predict_proba(df_check_scal)
         if prediction[0][1] >= 0.08: #treshold adjusted during model tuning
@@ -80,47 +80,36 @@ with st.sidebar.form("my_form"):
         else:
             st.title("Seems like you are fine")
         st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
-
 image = Image.open('streamlit_app/i_1.png')
 st.image(image)
 
 st.title('Heart Disease Indicators')
 st.caption('From Behavioural Risk Factor Surveillance System dataset.')
 
-
-
-
-st.subheader('Heart Disease depending on Feature')
+# heart disease and its relation to different features chart
+st.subheader('Heart Disease and its relation to different features')
 feature = st.selectbox(
-   'How heart disease is related to different features from dataset?',
+   'This chart shows how likely a person is to have heart disease based on different characteristics. It helps us understand which factors may affect heart disease risk. By looking at this data, we can find patterns or risk factors that can help prevent or treat heart disease.',
    ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
-
 fig, ax = plt.subplots(figsize=(10, 4))
-
 # create a new dataframe to calculate the percentages
 unique_values = data[feature].unique()
-
 df = pd.DataFrame(columns=[feature, 'HeartDisease'])
-
 for value in unique_values:
     sub_data = data[data[feature] == value]
     count = len(sub_data)
     hd_count = len(sub_data[sub_data['HeartDisease'] == 'Yes'])
     percent = (hd_count / count) * 100
     df = df.append({feature: value, 'HeartDisease': percent}, ignore_index=True)
-
 # create the bar plot
 sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
-
 a = ax.get_xticklabels()
 for tick in a:
     if tick.get_text() == 'American Indian/Alaskan Native':
         tick.set_text('Amer.Indian/Alaskan')
 ax.set_xticklabels(a)
-
 # format the y-axis to show percentages
 ax.yaxis.set_major_formatter(mtick.PercentFormatter())
-
 st.pyplot(fig)
 
 
@@ -169,13 +158,12 @@ if show_numbers:
         graph.annotate(percentage, (x, y),ha='center')
 st.pyplot(fig)
 
-
-show_data = st.checkbox('Show Target Distribution &  Raw Data', value=False)
+#bottom part checkbox showing raw data and target distribution
+show_data = st.checkbox('More about Data, Target Distribution &  Raw Data', value=False)
 if show_data:
     st.caption('The dataset originally comes from the CDC and is a major part of the Behavioural Risk Factor Surveillance System (BRFSS), which conducts annual telephone surveys to gather data on the health status of U.S. residents. BRFSS completes more than 400,000 adult interviews each year, making it the largest continuously conducted health survey system in the world.". The most recent dataset (as of February 15, 2022) includes data from 2020.')
     st.subheader('Target Distribution')
     st.caption('The dataset is unbalanced as there is more healthy people than ones having heart disease.')
-
     s = data['HeartDisease'].value_counts(normalize=True, sort=False).mul(100)
     fig = plt.figure(figsize = (10,4))
     ax = sns.barplot(x=s.index, y=s)
@@ -187,8 +175,6 @@ if show_data:
         y = p.get_height()
         ax.annotate(percentage, (x, y), ha='center')
     st.pyplot(fig)
-
-    
     st.subheader('Raw Data')
     st.dataframe(data.drop(columns=['Unnamed: 0']))
 
