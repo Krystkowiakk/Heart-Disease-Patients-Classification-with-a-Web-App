@@ -137,7 +137,7 @@ sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 a = ax.get_xticklabels()
 for tick in a:
     if len(tick.get_text()) > 25:
-        tick.set_text(tick.get_text()[0:25])
+        tick.set_text('American Indian/Alaskan')
 ax.set_xticklabels(a)
 
     
