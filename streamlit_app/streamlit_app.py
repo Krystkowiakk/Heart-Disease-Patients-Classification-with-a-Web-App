@@ -12,7 +12,7 @@ import matplotlib.ticker as mtick
 st.set_page_config(
    page_title="Heart Disease Indicators",
    page_icon="+",
-   layout="normal",
+   layout="centered",
    initial_sidebar_state="expanded"
 )
 
