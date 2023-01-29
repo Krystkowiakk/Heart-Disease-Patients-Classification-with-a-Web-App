@@ -8,6 +8,21 @@ import pickle
 #from sklearn.preprocessing import StandardScaler
 import matplotlib.ticker as mtick
 
+st.set_page_config(
+   page_title="EHeart Disease Indicators",
+   page_icon="+",
+   theme="light",
+   layout="normal"
+   initial_sidebar_state="expanded",
+)
+
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
 #data loading
 data = pd.read_csv('streamlit_app/out.csv')
 
@@ -19,7 +34,7 @@ def dum_gen(col, lis):
         else:
             df_check[l] = 0
 
-#sidebar form for user input and prediction
+#sidebar form for user input form and heart disease prediction
 with st.sidebar.form("my_form"):
    st.write("Check if you should visit the doctor!")
    Sex = st.selectbox("Sex", ("Female", "Male"))
@@ -81,10 +96,9 @@ with st.sidebar.form("my_form"):
 image = Image.open('streamlit_app/i_1.png')
 st.image(image)
 
+# heart disease and its relation to different features chart
 st.title('Heart Disease Indicators')
 st.caption('From Behavioural Risk Factor Surveillance System dataset.')
-
-# heart disease and its relation to different features chart
 st.subheader('Heart Disease and its relation to different features')
 feature = st.selectbox(
    'This chart shows how likely a person is to have heart disease based on different characteristics. It helps us understand which factors may affect heart disease risk. By looking at this data, we can find patterns or risk factors that can help prevent or treat heart disease.',
@@ -105,16 +119,13 @@ if feature == 'GenHealth':
     sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax, order=['Excellent', 'Very good', 'Good', 'Fair', 'Poor'])
 else:
     sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
-
 ax.set(ylabel="Heart Disease (%)")
 ax.set(yticklabels=[])
 a = ax.get_xticklabels()
-
 for tick in a:
     if tick.get_text() == 'American Indian/Alaskan Native':
         tick.set_text('Amer.Indian/Alaskan')
 ax.set_xticklabels(a)
-
 # #this part is for annotating the bars with the percentage
 for f in ax.containers[0].patches:
     ax.annotate("%.2f%%" % f.get_height(), (f.get_x() + f.get_width() / 2., f.get_height()),
@@ -126,25 +137,20 @@ st.pyplot(fig)
 #plot age and lifestyle vs heart disease chart
 st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
 st.caption('And how heart disease is releated to age and lifestyle?')
-
 #checkboxes for filtering data
 col1, col2= st.columns(2)
 with col1:
     show_smokers = st.checkbox("Smoking", value=False)
-
 with col2:
     show_alcohol = st.checkbox("Alcohol Drinking", value=False)
-
 if show_smokers:
     data_filtered = data[data['Smoking']=='Yes']
 else:
     data_filtered = data[data['Smoking']=='No']
-
 if show_alcohol:
     data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='Yes']
 else:
     data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
-
 #prepare data for plotting
 age_groups = data_filtered['AgeCategory'].unique()
 df2 = pd.DataFrame(columns=['AgeCategory', 'Probability'])
@@ -154,20 +160,17 @@ for age_group in age_groups:
     hd_count = len(sub_data[sub_data['HeartDisease'] == 'Yes'])
     probability = (hd_count / total_count) * 100
     df2 = df2.append({'AgeCategory': age_group, 'Probability': probability}, ignore_index=True)
-
 #plot the data
 fig, ax = plt.subplots(figsize=(10, 4))
 plt.subplots_adjust(top=1.3)
 graph = sns.barplot(x='AgeCategory', y='Probability', data=df2, ax=ax, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
 graph.set(ylabel="Heart Disease (%)")
 graph.set(yticklabels=[])
-
 #this part is for annotating the bars with the percentage
 for p in graph.containers[0].patches:
     graph.annotate("%.2f%%" % p.get_height(), (p.get_x() + p.get_width() / 2., p.get_height()),
                  ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
                  textcoords='offset points')
-
 st.pyplot(fig)
 
 
@@ -191,4 +194,4 @@ if show_data:
     st.subheader('Raw Data')
     st.dataframe(data.drop(columns=['Unnamed: 0']))
 
-
+st.subheader('
