@@ -194,5 +194,5 @@ if show_data:
     st.subheader('Raw Data')
     st.dataframe(data.drop(columns=['Unnamed: 0']))
 
-link="<h1 style='text-align: center;'>MORE ABOUT THAT PROJECT AT MY [GITHUB](https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App)</h1>"
-st.subheader(link,unsafe_allow_html=True)
+#link="<h1 style='text-align: center;'>MORE ABOUT THAT PROJECT AT MY [GITHUB](https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App)</h1>"
+st.markdown("<h1 style='text-align: center; color: red;'>Some title</h1>", unsafe_allow_html=True)
