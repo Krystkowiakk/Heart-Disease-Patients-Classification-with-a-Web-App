@@ -8,11 +8,9 @@ import pickle
 #from sklearn.preprocessing import StandardScaler
 import matplotlib.ticker as mtick
 
-[theme]
-base="light"
 
 st.set_page_config(
-   page_title="EHeart Disease Indicators",
+   page_title="Heart Disease Indicators",
    page_icon="+",
    layout="normal",
    initial_sidebar_state="expanded"
