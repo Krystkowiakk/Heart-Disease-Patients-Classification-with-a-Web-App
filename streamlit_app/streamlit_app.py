@@ -116,8 +116,6 @@ st.caption('And how heart disease is releated to age and lifestyle?')
 
 col1, col2= st.columns(2)
 
-data_filtered = data[data['HeartDisease']=='Yes']
-
 with col1:
     show_smokers = st.checkbox("Smoking", value=False)
 
@@ -135,7 +133,7 @@ else:
     data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
 
 fig, ax1 = plt.subplots(figsize=(10, 4))
-graph = sns.countplot(ax=ax1,x = 'AgeCategory' , data = data_filtered, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
+graph = sns.countplot(ax=ax1,x = 'AgeCategory' , data = data_filtered, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'], hue='HeartDisease')
 graph.set(ylabel="")
 graph.set(yticklabels=[])
 
