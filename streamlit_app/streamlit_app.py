@@ -195,4 +195,4 @@ if show_data:
     st.dataframe(data.drop(columns=['Unnamed: 0']))
 
 link="MORE ABOUT THAT PROJECT AT MY [GITHUB](https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App)"
-st.markdown(link,unsafe_allow_html=True)
+st.subheader(<h1 style='text-align: center;link</h1>,unsafe_allow_html=True)
