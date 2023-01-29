@@ -122,6 +122,9 @@ with col1:
 with col2:
     show_alcohol = st.checkbox("Alcohol Drinking", value=False)
 
+with col3:
+    show_percentage = st.checkbox("Show Percentage", value=False)
+
 if show_smokers:
     data_filtered = data[data['Smoking']=='Yes']
 else:
