@@ -141,10 +141,10 @@ graph.set(yticklabels=[])
 
 total = float(len(data_filtered))
 for p in graph.patches:
-percentage = '{:.1f}%'.format(100 * p.get_height()/total)
-x = p.get_x() + p.get_width()/2
-y = p.get_height()
-graph.annotate(percentage, (x, y),ha='center')
+    percentage = '{:.1f}%'.format(100 * p.get_height()/total)
+    x = p.get_x() + p.get_width()/2
+    y = p.get_height()
+    graph.annotate(percentage, (x, y),ha='center')
 st.pyplot(fig)
 
 
