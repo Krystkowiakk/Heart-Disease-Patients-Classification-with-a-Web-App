@@ -132,13 +132,19 @@ if show_alcohol:
 else:
     data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
 
-heart_disease_counts = data_filtered.groupby(['AgeCategory', 'HeartDisease']).size().reset_index(name='counts')
-heart_disease_counts['percentage'] = heart_disease_counts.groupby(['AgeCategory'])['counts'].apply(lambda x: x / x.sum() * 100)
+data_filtered = data[data['HeartDisease']=='Yes']
 
 fig, ax1 = plt.subplots(figsize=(10, 4))
-graph = sns.barplot(x='AgeCategory', y='percentage', hue='HeartDisease', data=heart_disease_counts, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
-graph.set(ylabel="Percentage")
-graph.set(yticklabels=['{:,.0f}%'.format(y) for y in graph.get_yticks()])
+graph = sns.countplot(ax=ax1,x = 'AgeCategory' , data = data_filtered, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
+graph.set(ylabel="")
+graph.set(yticklabels=[])
+
+total = float(len(data_filtered))
+for p in graph.patches:
+percentage = '{:.1f}%'.format(100 * p.get_height()/total)
+x = p.get_x() + p.get_width()/2
+y = p.get_height()
+graph.annotate(percentage, (x, y),ha='center')
 st.pyplot(fig)
 
 
