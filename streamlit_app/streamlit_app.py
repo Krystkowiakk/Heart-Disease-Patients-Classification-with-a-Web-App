@@ -12,8 +12,8 @@ st.set_page_config(
    page_title="EHeart Disease Indicators",
    page_icon="+",
    theme="light",
-   layout="normal"
-   initial_sidebar_state="expanded",
+   layout="normal",
+   initial_sidebar_state="expanded"
 )
 
 hide_menu_style = """
