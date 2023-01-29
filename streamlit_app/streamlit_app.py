@@ -48,19 +48,19 @@ with st.sidebar.form("my_form"):
         input_data = {
             'BMI': [BMI],
             'Smoking': [Smoking],
-            'AlcoholDrinking': [AlcoholDrinking],
+            'Alcohol Drinking': [AlcoholDrinking],
             'Stroke': [Stroke],
-            'DiffWalking': [DiffWalking],
+            'Difficulties while Walking': [DiffWalking],
             'Sex': [Sex],
-            'PhysicalActivity': [PhysicalActivity],
-            'SleepTime': [SleepTime],
+            'Physical Activity': [PhysicalActivity],
+            'Sleep Time': [SleepTime],
             'Asthma': [Asthma],
-            'KidneyDisease': [KidneyDisease],
-            'SkinCancer': [SkinCancer],
-            'AgeCategory': [AgeCategory],
+            'Kidney Disease': [KidneyDisease],
+            'Skin Cancer': [SkinCancer],
+            'Age Category': [AgeCategory],
             'Race': [Race],
             'Diabetic': [Diabetic],
-            'GenHealth': [GenHealth]
+            'General Health': [GenHealth]
         }
         df_check = pd.DataFrame(data = input_data)
         dum_gen('AgeCategory', ['AgeCategory_18-24', 'AgeCategory_25-29', 'AgeCategory_30-34', 'AgeCategory_35-39', 'AgeCategory_40-44', 'AgeCategory_45-49', 'AgeCategory_50-54', 'AgeCategory_55-59', 'AgeCategory_60-64', 'AgeCategory_65-69', 'AgeCategory_70-74', 'AgeCategory_75-79', 'AgeCategory_80 or older'])
@@ -105,6 +105,7 @@ if feature == 'GenHealth':
     sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax, order=['Excellent', 'Very good', 'Good', 'Fair', 'Poor'])
 else:
     sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
+
 ax.set(ylabel="Heart Disease (%)")
 ax.set(yticklabels=[])
 a = ax.get_xticklabels()
@@ -168,13 +169,6 @@ for p in graph.containers[0].patches:
                  textcoords='offset points')
 
 st.pyplot(fig)
-
-
-
-# format the y-axis to show percentages
-#ax.yaxis.set_major_formatter(mtick.PercentFormatter())
-
-
 
 
 #bottom part checkbox showing raw data and target distribution
