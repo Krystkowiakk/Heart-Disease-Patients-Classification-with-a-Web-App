@@ -150,11 +150,11 @@ graph = sns.barplot(x='AgeCategory', y='Probability', data=df2, ax=ax, order=['1
 graph.set(ylabel="Percentage(%)")
 graph.set(yticklabels=[])
 
-#this part is for annotating the bars with the percentage
-# for p in graph.containers[0].patches:
-#     graph.annotate("%.2f%%" % p.get_height(), (p.get_x() + p.get_width() / 2., p.get_height()),
-#                  ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
-#                  textcoords='offset points')
+this part is for annotating the bars with the percentage
+for p in graph.containers[0].patches:
+    graph.annotate("%.2f%%" % p.get_height(), (p.get_x() + p.get_width() / 2., p.get_height()),
+                 ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
+                 textcoords='offset points')
 
 st.pyplot(fig)
 
