@@ -9,9 +9,7 @@ import pickle
 import matplotlib.ticker as mtick
 
 #data loading
-st.text('Loading...')
 data = pd.read_csv('streamlit_app/out.csv')
-st.text('Loading...Done')
 
 #dummy variables for categorical features generation
 def dum_gen(col, lis):
@@ -116,46 +114,35 @@ st.pyplot(fig)
 st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
 st.caption('And how heart disease is releated to age and lifestyle?')
 
-col1, col2, col3 = st.columns(3)
+col1, col2= st.columns(2)
 
 with col1:
-    show_smokers = st.radio(
-        "How smoking influence the Heart Disease? Show:",
-        ('Both', 'Smoking', 'No Smoking'))
+    show_smokers = = st.checkbox("Smoking", value=False)
 
 with col2:
-    show_alcohol = st.radio(
-        "How alcohol drinking influence the Heart Disease? Show:",
-        ('Both', 'Alcohol Drinking', 'No Alcohol Drinking'))    
+    show_alcohol = st.checkbox("Alcohol Drinking", value=False)
 
-with col3:
-    show_numbers = st.checkbox('Show numbers', value=False)  #move that switch on side
-
-if show_smokers == 'Smoking':
+if show_smokers:
     data_filtered = data[data['Smoking']=='Yes']
-elif show_smokers == 'No Smoking':
+else:
     data_filtered = data[data['Smoking']=='No']
-else:
-    data_filtered = data
 
-if show_alcohol == 'Alcohol Drinking':
+if show_alcohol:
     data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='Yes']
-elif show_alcohol == 'No Alcohol Drinking':
-    data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
 else:
-    data_filtered = data_filtered
+    data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
 
 fig, ax1 = plt.subplots(figsize=(10, 4))
 graph = sns.countplot(ax=ax1,x = 'AgeCategory' , data = data_filtered, hue='HeartDisease', order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
 graph.set(ylabel="")
 graph.set(yticklabels=[])
-if show_numbers:
-    total = float(len(data_filtered))
-    for p in graph.patches:
-        percentage = '{:.1f}%'.format(100 * p.get_height()/total)
-        x = p.get_x() + p.get_width()/1.3
-        y = p.get_height()
-        graph.annotate(percentage, (x, y),ha='center')
+# if show_numbers:
+#     total = float(len(data_filtered))
+#     for p in graph.patches:
+#         percentage = '{:.1f}%'.format(100 * p.get_height()/total)
+#         x = p.get_x() + p.get_width()/1.3
+#         y = p.get_height()
+#         graph.annotate(percentage, (x, y),ha='center')
 st.pyplot(fig)
 
 #bottom part checkbox showing raw data and target distribution
