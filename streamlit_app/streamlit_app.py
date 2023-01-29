@@ -132,7 +132,7 @@ sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 
 for tick in ax.get_xticklabels():
     if tick.get_text() == "Race_American Indian/Alaskan Native":
-        tick.set_text("American Indian/Alaskan")))
+        tick.set_text("American Indian/Alaskan")
 
 # format the y-axis to show percentages
 ax.yaxis.set_major_formatter(mtick.PercentFormatter())
