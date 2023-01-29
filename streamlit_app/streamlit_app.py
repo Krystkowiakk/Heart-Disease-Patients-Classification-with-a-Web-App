@@ -194,5 +194,5 @@ if show_data:
     st.subheader('Raw Data')
     st.dataframe(data.drop(columns=['Unnamed: 0']))
 
-st.header("Section 1")
-st.markdown("[Section 1](#section-1)")
+link="MORE ABOUT THAT PROJECT AT MY [GITHUB](https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App)"
+st.markdown(link,unsafe_allow_html=True)
