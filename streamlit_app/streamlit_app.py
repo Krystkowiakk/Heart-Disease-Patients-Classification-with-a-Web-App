@@ -135,7 +135,7 @@ ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 for tick in ax.get_xticklabels():
     if len(tick.get_text()) > 20:
         #wraping text of the tick labels
-            tick.set_text("New Tick Name")
+        tick.set_text("New Tick Name")
 
 
 
