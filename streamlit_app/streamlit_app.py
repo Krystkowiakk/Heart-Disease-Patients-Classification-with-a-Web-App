@@ -132,7 +132,7 @@ if show_alcohol:
 else:
     data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
 
-data_filtered = data[data['HeartDisease']=='Yes']
+data_filtered = data_filtered[data_filtered['HeartDisease']=='Yes']
 
 fig, ax1 = plt.subplots(figsize=(10, 4))
 graph = sns.countplot(ax=ax1,x = 'AgeCategory' , data = data_filtered, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
