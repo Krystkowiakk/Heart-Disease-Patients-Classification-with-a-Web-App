@@ -7,6 +7,7 @@ from PIL import Image
 import pickle
 from sklearn.preprocessing import StandardScaler
 import matplotlib.ticker as mtick
+import textwrap
 
 #st.text('Loading...')
 data = pd.read_csv('streamlit_app/out.csv')
@@ -129,17 +130,17 @@ for value in unique_values:
 # create the bar plot
 sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 
+for tick in ax.get_xticklabels():
+    if len(tick.get_text()) > 20:
+        tick.set_text("\n".join(textwrap.wrap(tick.get_text(), 10)))
+
 # format the y-axis to show percentages
 ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 
-for tick in ax.get_xticklabels():
-    if len(tick.get_text()) > 20:
-        #wraping text of the tick labels
-        tick.set_text("New Tick Name")
-
-
-
 st.pyplot(fig)
+
+
+
 
 # st.subheader('Heart Disease vs Different Features')
 # feature = st.selectbox(
