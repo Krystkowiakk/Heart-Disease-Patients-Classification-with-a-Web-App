@@ -132,8 +132,8 @@ sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 
 for tick in ax.get_xticklabels():
     if len(tick.get_text()) > 20:
-        #turn the text
-        tick.set_text(str(tick.get_text())[0:10], inplace=True)
+        for tick in ax.get_xticklabels():
+            tick.set_text(tick.get_text()[:6])
         
 
 # format the y-axis to show percentages
