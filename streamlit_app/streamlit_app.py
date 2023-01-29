@@ -132,24 +132,21 @@ if show_alcohol:
 else:
     data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
 
-fig, axs = plt.subplots(4,3, figsize=(15,10), sharey=True)
-plt.subplots_adjust(hspace = 0.3)
-i = 0
-j = 0
-for age in data_filtered['AgeCategory'].unique():
-    data_age = data_filtered[data_filtered['AgeCategory'] == age]
-    risk_of_heart_disease = (data_age['HeartDisease'].value_counts()[1] / len(data_age))*100
-    axs[i,j].bar(['Heart Disease Risk'], risk_of_heart_disease)
-    axs[i,j].set_title(age)
-    if j == 2:
-        i += 1
-        j = 0
-    else:
-        j += 1
+fig, ax1 = plt.subplots(figsize=(10, 4))
+data_filtered_heart = data_filtered[data_filtered['HeartDisease']=='Yes']
+data_filtered_no_heart = data_filtered[data_filtered['HeartDisease']=='No']
+data_filtered_heart_count = data_filtered_heart.groupby(['AgeCategory']).size().reset_index(name='counts_heart')
+data_filtered_no_heart_count = data_filtered_no_heart.groupby(['AgeCategory']).size().reset_index(name='counts_no_heart')
+data_filtered_merged = pd.merge(data_filtered_heart_count, data_filtered_no_heart_count, on='AgeCategory')
+data_filtered_merged['total'] = data_filtered_merged['counts_heart'] + data_filtered_merged['counts_no_heart']
+data_filtered_merged['heart_risk_perc'] = data_filtered_merged['counts_heart'] / data_filtered_merged['total']
+
+graph = ax1.bar(data_filtered_merged['AgeCategory'],data_filtered_merged['heart_risk_perc'])
+
+ax1.set_ylabel("Percentage of Heart Disease")
+ax1.set_yticklabels(['{:,.0%}'.format(y) for y in ax1.get_yticks()])
 
 st.pyplot(fig)
-
-
 
 #bottom part checkbox showing raw data and target distribution
 show_data = st.checkbox('More about Data, Target Distribution &  Raw Data', value=False)
