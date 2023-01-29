@@ -7,7 +7,6 @@ from PIL import Image
 import pickle
 #from sklearn.preprocessing import StandardScaler
 import matplotlib.ticker as mtick
-sns.set_style('whitegrid')
 
 #data loading
 data = pd.read_csv('streamlit_app/out.csv')
@@ -141,8 +140,8 @@ age_group['Percentage'] = age_group['Counts']/age_group['Counts'].sum()*100
 
 #plot the data
 fig, ax = plt.subplots(figsize=(10, 4))
-plt.subplots_adjust(top=0.8)
-graph = sns.barplot(x='AgeCategory', y='Percentage', data=age_group, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
+plt.subplots_adjust(top=0.7)
+graph = sns.barplot(x='AgeCategory', y='Percentage', data=age_group, color="deep", order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
 graph.set(ylabel="Percentage(%)")
 graph.set(yticklabels=[])
 
