@@ -140,7 +140,7 @@ for age_group in age_groups:
     sub_data = data_filtered[data_filtered['AgeCategory'] == age_group]
     total_count = len(sub_data)
     hd_count = len(sub_data[sub_data['HeartDisease'] == 'Yes'])
-    probability = (hd_count / total_count)
+    probability = (hd_count / total_count) * 100
     df2 = df2.append({'AgeCategory': age_group, 'Probability': probability}, ignore_index=True)
 
 #plot the data
