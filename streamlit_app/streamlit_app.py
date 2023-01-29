@@ -111,19 +111,16 @@ ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 st.pyplot(fig)
 
 
-st.subheader('Heart Disease vs Age & Lifestyle')
+st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
 st.caption('And how heart disease is releated to age and lifestyle?')
 
-col1, col2, col3 = st.columns(3)
+col1, col2= st.columns(2)
 
 with col1:
     show_smokers = st.checkbox("Smoking", value=False)
 
 with col2:
     show_alcohol = st.checkbox("Alcohol Drinking", value=False)
-
-with col3:
-    show_percentage = st.checkbox("Show Percentage", value=False)
 
 if show_smokers:
     data_filtered = data[data['Smoking']=='Yes']
@@ -135,22 +132,15 @@ if show_alcohol:
 else:
     data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
 
+heart_disease_counts = data_filtered.groupby(['AgeCategory', 'HeartDisease']).size().reset_index(name='counts')
+heart_disease_counts['percentage'] = heart_disease_counts.groupby(['AgeCategory'])['counts'].apply(lambda x: x / x.sum() * 100)
+
 fig, ax1 = plt.subplots(figsize=(10, 4))
-data_filtered_heart = data_filtered[data_filtered['HeartDisease']=='Yes']
-data_filtered_no_heart = data_filtered[data_filtered['HeartDisease']=='No']
-data_filtered_heart_count = data_filtered_heart.groupby(['AgeCategory']).size().reset_index(name='counts_heart')
-data_filtered_no_heart_count = data_filtered_no_heart.groupby(['AgeCategory']).size().reset_index(name='counts_no_heart')
-data_filtered_merged = pd.merge(data_filtered_heart_count, data_filtered_no_heart_count, on='AgeCategory')
-data_filtered_merged['total'] = data_filtered_merged['counts_heart'] + data_filtered_merged['counts_no_heart']
-data_filtered_merged['heart_risk_perc'] = data_filtered_merged['counts_heart'] / data_filtered_merged['total']
-
-graph = ax1.bar(data_filtered_merged['AgeCategory'],data_filtered_merged['heart_risk_perc'])
-
-ax1.set_ylabel("Heart Disease")
-if show_percentage:
-    ax1.set_yticklabels(['{:,.0%}'.format(y) for y in ax1.get_yticks()])
-
+graph = sns.barplot(x='AgeCategory', y='percentage', hue='HeartDisease', data=heart_disease_counts, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
+graph.set(ylabel="Percentage")
+graph.set(yticklabels=['{:,.0f}%'.format(y) for y in graph.get_yticks()])
 st.pyplot(fig)
+
 
 #bottom part checkbox showing raw data and target distribution
 show_data = st.checkbox('More about Data, Target Distribution &  Raw Data', value=False)
