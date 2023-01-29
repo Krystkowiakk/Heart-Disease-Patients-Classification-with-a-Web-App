@@ -117,7 +117,7 @@ st.caption('And how heart disease is releated to age and lifestyle?')
 col1, col2= st.columns(2)
 
 with col1:
-    show_smokers = = st.checkbox("Smoking", value=False)
+    show_smokers = st.checkbox("Smoking", value=False)
 
 with col2:
     show_alcohol = st.checkbox("Alcohol Drinking", value=False)
