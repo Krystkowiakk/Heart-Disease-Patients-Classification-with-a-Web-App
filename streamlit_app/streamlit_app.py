@@ -194,5 +194,5 @@ if show_data:
     st.subheader('Raw Data')
     st.dataframe(data.drop(columns=['Unnamed: 0']))
 
-link = "<h1 style='text-align: right'>MORE ABOUT THAT PROJECT AT MY <a href='https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App'>GITHUB</a></h1>"
-st.markdown(link, unsafe_allow_html=True)
+#link = "<h1 style='text-align: right'>MORE ABOUT THAT PROJECT AT MY <a href='https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App'>GITHUB</a></h1>"
+#st.markdown(link, unsafe_allow_html=True)
