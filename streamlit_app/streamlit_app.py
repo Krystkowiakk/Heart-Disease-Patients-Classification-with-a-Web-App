@@ -111,43 +111,45 @@ ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 st.pyplot(fig)
 
 
-st.subheader('Heart Disease Risk by Age & Lifestyle')
-st.caption('This chart shows the likelihood of developing heart disease based on age and lifestyle factors.')
+st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
+st.caption('And how heart disease is releated to age and lifestyle?')
 
-col1, col2 = st.columns(2)
+col1, col2= st.columns(2)
 
 with col1:
-show_smokers = st.checkbox("Smoking", value=False)
+    show_smokers = st.checkbox("Smoking", value=False)
 
 with col2:
-show_alcohol = st.checkbox("Alcohol Drinking", value=False)
+    show_alcohol = st.checkbox("Alcohol Drinking", value=False)
 
 if show_smokers:
-data_filtered = data[data['Smoking']=='Yes']
+    data_filtered = data[data['Smoking']=='Yes']
 else:
-data_filtered = data[data['Smoking']=='No']
+    data_filtered = data[data['Smoking']=='No']
 
 if show_alcohol:
-data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='Yes']
+    data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='Yes']
 else:
-data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
+    data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
 
 fig, axs = plt.subplots(4,3, figsize=(15,10), sharey=True)
 plt.subplots_adjust(hspace = 0.3)
 i = 0
 j = 0
 for age in data_filtered['AgeCategory'].unique():
-data_age = data_filtered[data_filtered['AgeCategory'] == age]
-risk_of_heart_disease = (data_age['HeartDisease'].value_counts()[1] / len(data_age))*100
-axs[i,j].bar(['Heart Disease Risk'], risk_of_heart_disease)
-axs[i,j].set_title(age)
-if j == 2:
-i += 1
-j = 0
-else:
-j += 1
+    data_age = data_filtered[data_filtered['AgeCategory'] == age]
+    risk_of_heart_disease = (data_age['HeartDisease'].value_counts()[1] / len(data_age))*100
+    axs[i,j].bar(['Heart Disease Risk'], risk_of_heart_disease)
+    axs[i,j].set_title(age)
+    if j == 2:
+        i += 1
+        j = 0
+    else:
+        j += 1
 
 st.pyplot(fig)
+
+
 
 #bottom part checkbox showing raw data and target distribution
 show_data = st.checkbox('More about Data, Target Distribution &  Raw Data', value=False)
