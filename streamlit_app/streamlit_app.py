@@ -149,7 +149,8 @@ graph = ax1.bar(data_filtered_merged['AgeCategory'],data_filtered_merged['heart_
 ax1.set_ylabel("Heart Disease")
 if show_percentage:
     ax1.set_yticklabels(['{:,.0%}'.format(y) for y in ax1.get_yticks()])
-st.pyplot()
+
+st.pyplot(fig)
 
 #bottom part checkbox showing raw data and target distribution
 show_data = st.checkbox('More about Data, Target Distribution &  Raw Data', value=False)
