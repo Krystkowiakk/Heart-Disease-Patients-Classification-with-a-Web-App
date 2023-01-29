@@ -131,13 +131,13 @@ for value in unique_values:
 sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 
 # for tick in ax.get_xticklabels():
-#     if len(tick.get_text()) > 25:
+#     if tick.get_text() == 'American Indian/Alaskan Native':
 #         tick.set_rotation(45)
 
 a = ax.get_xticklabels()
 for tick in a:
-    if len(tick.get_text()) > 25:
-        tick.set_text('American Indian/Alaskan')
+    if tick.get_text() == 'American Indian/Alaskan Native':
+        tick.set_text('Amer.Indian/Alaskan')
 ax.set_xticklabels(a)
 
     
