@@ -129,8 +129,6 @@ for value in unique_values:
 # create the bar plot
 sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 
-ax.set_xticklabels([x.get(0, 10) for x in df[feature].unique()])
-
 # format the y-axis to show percentages
 ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 
