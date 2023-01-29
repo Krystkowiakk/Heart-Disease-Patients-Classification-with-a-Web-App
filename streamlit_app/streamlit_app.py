@@ -111,11 +111,12 @@ ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 st.pyplot(fig)
 
 
+#plot age and lifestyle vs heart disease chart
 st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
 st.caption('And how heart disease is releated to age and lifestyle?')
 
+#checkboxes for filtering data
 col1, col2= st.columns(2)
-
 with col1:
     show_smokers = st.checkbox("Smoking", value=False)
 
@@ -132,15 +133,18 @@ if show_alcohol:
 else:
     data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
 
+#prepare data for plotting
 data_filtered_hd = data_filtered[data_filtered['HeartDisease'] == 'Yes']
 age_group = data_filtered_hd.groupby('AgeCategory').size().reset_index(name='Counts')
 age_group['Percentage'] = age_group['Counts']/age_group['Counts'].sum()*100
 
+#plot the data
 fig, ax = plt.subplots(figsize=(10, 4))
-graph = sns.barplot(x='AgeCategory', y='Percentage', data=age_group, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
+graph = sns.barplot(x='AgeCategory', y='Percentage', data=age_group, color='blue', order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
 graph.set(ylabel="Percentage(%)")
 graph.set(yticklabels=[])
 
+#this part is for annotating the bars with the percentage
 for p in graph.containers[0].patches:
     graph.annotate("%.2f%%" % p.get_height(), (p.get_x() + p.get_width() / 2., p.get_height()),
                  ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
