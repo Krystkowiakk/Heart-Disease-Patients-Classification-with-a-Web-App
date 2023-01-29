@@ -194,4 +194,5 @@ if show_data:
     st.subheader('Raw Data')
     st.dataframe(data.drop(columns=['Unnamed: 0']))
 
-st.subheader('
+st.header("Section 1")
+st.markdown("[Section 1](#section-1)")
