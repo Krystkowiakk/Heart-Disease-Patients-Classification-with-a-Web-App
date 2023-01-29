@@ -90,6 +90,7 @@ feature = st.selectbox(
    'This chart shows how likely a person is to have heart disease based on different characteristics. It helps us understand which factors may affect heart disease risk. By looking at this data, we can find patterns or risk factors that can help prevent or treat heart disease.',
    ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
 fig, ax = plt.subplots(figsize=(10, 4))
+plt.subplots_adjust(top=1.3)
 # create a new dataframe to calculate the percentages
 unique_values = data[feature].unique()
 df = pd.DataFrame(columns=[feature, 'HeartDisease'])
@@ -101,26 +102,19 @@ for value in unique_values:
     df = df.append({feature: value, 'HeartDisease': percent}, ignore_index=True)
 # create the bar plot
 sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
+# graph.set(ylabel="Heart Disease (%)")
+# graph.set(yticklabels=[])
 a = ax.get_xticklabels()
 for tick in a:
     if tick.get_text() == 'American Indian/Alaskan Native':
         tick.set_text('Amer.Indian/Alaskan')
 ax.set_xticklabels(a)
-#this part is for annotating the bars with the percentage
-for p in fig.containers[0].patches:
-    graph.annotate("%.2f%%" % p.get_height(), (p.get_x() + p.get_width() / 2., p.get_height()),
-                 ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
-                 textcoords='offset points')
+# #this part is for annotating the bars with the percentage
+# for pf in fig.containers[0].patches:
+#     graph.annotate("%.2f%%" % f.get_height(), (f.get_x() + f.get_width() / 2., f.get_height()),
+#                  ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
+#                  textcoords='offset points')
 st.pyplot(fig)
-
-#plot the data
-# fig, ax = plt.subplots(figsize=(10, 4))
-# plt.subplots_adjust(top=1.3)
-# graph = sns.barplot(x='AgeCategory', y='Probability', data=df2, ax=ax, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
-# graph.set(ylabel="Heart Disease (%)")
-# graph.set(yticklabels=[])
-
-
 
 
 #plot age and lifestyle vs heart disease chart
