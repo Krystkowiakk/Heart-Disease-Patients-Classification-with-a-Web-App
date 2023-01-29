@@ -129,17 +129,12 @@ for value in unique_values:
 # create the bar plot
 sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 
-#to make x-axis ticks better readable (if there are more than 3)
-if len(unique_values) > 3:
-    plt.xticks(rotation=45)
+ax1.set_xticklabels([x.get(0, 10) for x in df[feature].unique()])
 
 # format the y-axis to show percentages
 ax.yaxis.set_major_formatter(mtick.PercentFormatter())
 
 st.pyplot(fig)
-
-
-
 
 # st.subheader('Heart Disease vs Different Features')
 # feature = st.selectbox(
