@@ -131,8 +131,8 @@ for value in unique_values:
 sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 
 for tick in ax.get_xticklabels():
-    if len(tick.get_text()) > 20:
-        tick.set_text("\n".join(textwrap.wrap(tick.get_text(), 10)))
+    if tick.get_text() == "Race_American Indian/Alaskan Native":
+        tick.set_text("American Indian/Alaskan")))
 
 # format the y-axis to show percentages
 ax.yaxis.set_major_formatter(mtick.PercentFormatter())
