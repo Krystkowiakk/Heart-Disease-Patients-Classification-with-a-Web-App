@@ -101,14 +101,19 @@ for value in unique_values:
     percent = (hd_count / count) * 100
     df = df.append({feature: value, 'HeartDisease': percent}, ignore_index=True)
 # create the bar plot
-sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
+if feature == 'GenHealth':
+    sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax, order=["poor", "fair", "good", "very good", "excellent"])
+else:
+    sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 ax.set(ylabel="Heart Disease (%)")
 ax.set(yticklabels=[])
 a = ax.get_xticklabels()
+
 for tick in a:
     if tick.get_text() == 'American Indian/Alaskan Native':
         tick.set_text('Amer.Indian/Alaskan')
 ax.set_xticklabels(a)
+
 # #this part is for annotating the bars with the percentage
 for f in ax.containers[0].patches:
     ax.annotate("%.2f%%" % f.get_height(), (f.get_x() + f.get_width() / 2., f.get_height()),
