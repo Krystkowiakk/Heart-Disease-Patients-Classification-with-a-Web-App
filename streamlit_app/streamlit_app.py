@@ -131,7 +131,9 @@ for value in unique_values:
 sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 
 for tick in ax.get_xticklabels():
-    tick.set_text(tick.get_text()[:20])
+    if len(tick.get_text()) > 25:
+        tick.set_rotation(45)
+        
 
 # format the y-axis to show percentages
 ax.yaxis.set_major_formatter(mtick.PercentFormatter())
