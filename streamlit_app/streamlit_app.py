@@ -137,7 +137,7 @@ else:
 age_groups = data_filtered['AgeCategory'].unique()
 df2 = pd.DataFrame(columns=['AgeCategory', 'Probability'])
 for age_group in age_groups:
-    sub_data = data[data['AgeCategory'] == age_group]
+    sub_data = data_filtered[data_filtered['AgeCategory'] == age_group]
     total_count = len(sub_data)
     hd_count = len(sub_data[sub_data['HeartDisease'] == 'Yes'])
     probability = (hd_count / total_count)
