@@ -1,13 +1,12 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
-import numpy as np
+#import numpy as np
 import seaborn as sns
 from PIL import Image
 import pickle
-from sklearn.preprocessing import StandardScaler
+#from sklearn.preprocessing import StandardScaler
 import matplotlib.ticker as mtick
-import textwrap
 
 #st.text('Loading...')
 data = pd.read_csv('streamlit_app/out.csv')
@@ -171,13 +170,12 @@ if show_numbers:
 st.pyplot(fig)
 
 
-show_data = st.checkbox('Show Raw Data & Target Distribution', value=False)
+show_data = st.checkbox('Show Target Distribution &  Raw Data', value=False)
 if show_data:
-    st.subheader('Raw Data')
     st.caption('The dataset originally comes from the CDC and is a major part of the Behavioural Risk Factor Surveillance System (BRFSS), which conducts annual telephone surveys to gather data on the health status of U.S. residents. BRFSS completes more than 400,000 adult interviews each year, making it the largest continuously conducted health survey system in the world.". The most recent dataset (as of February 15, 2022) includes data from 2020.')
-    st.dataframe(data.drop(columns=['Unnamed: 0']))
     st.subheader('Target Distribution')
     st.caption('The dataset is unbalanced as there is more healthy people than ones having heart disease.')
+
     s = data['HeartDisease'].value_counts(normalize=True, sort=False).mul(100)
     fig = plt.figure(figsize = (10,4))
     ax = sns.barplot(x=s.index, y=s)
@@ -189,4 +187,9 @@ if show_data:
         y = p.get_height()
         ax.annotate(percentage, (x, y), ha='center')
     st.pyplot(fig)
+
+    
+    st.subheader('Raw Data')
+    st.dataframe(data.drop(columns=['Unnamed: 0']))
+
 
