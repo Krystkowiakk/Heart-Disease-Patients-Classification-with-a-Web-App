@@ -7,6 +7,8 @@ from PIL import Image
 import pickle
 from sklearn.preprocessing import StandardScaler
 import matplotlib.ticker as mtick
+import textwrap
+
 
 #st.text('Loading...')
 data = pd.read_csv('streamlit_app/out.csv')
