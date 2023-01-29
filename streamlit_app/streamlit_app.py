@@ -106,9 +106,21 @@ for tick in a:
     if tick.get_text() == 'American Indian/Alaskan Native':
         tick.set_text('Amer.Indian/Alaskan')
 ax.set_xticklabels(a)
-# format the y-axis to show percentages
-ax.yaxis.set_major_formatter(mtick.PercentFormatter())
+#this part is for annotating the bars with the percentage
+for p in fig.containers[0].patches:
+    graph.annotate("%.2f%%" % p.get_height(), (p.get_x() + p.get_width() / 2., p.get_height()),
+                 ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
+                 textcoords='offset points')
 st.pyplot(fig)
+
+#plot the data
+# fig, ax = plt.subplots(figsize=(10, 4))
+# plt.subplots_adjust(top=1.3)
+# graph = sns.barplot(x='AgeCategory', y='Probability', data=df2, ax=ax, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
+# graph.set(ylabel="Heart Disease (%)")
+# graph.set(yticklabels=[])
+
+
 
 
 #plot age and lifestyle vs heart disease chart
@@ -145,9 +157,9 @@ for age_group in age_groups:
 
 #plot the data
 fig, ax = plt.subplots(figsize=(10, 4))
-plt.subplots_adjust(top=1.1)
+plt.subplots_adjust(top=1.3)
 graph = sns.barplot(x='AgeCategory', y='Probability', data=df2, ax=ax, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
-graph.set(ylabel="Percentage(%)")
+graph.set(ylabel="Heart Disease (%)")
 graph.set(yticklabels=[])
 
 #this part is for annotating the bars with the percentage
