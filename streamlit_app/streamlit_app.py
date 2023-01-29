@@ -28,11 +28,11 @@ with st.sidebar.form("my_form"):
        'AgeCategory_45-49', 'AgeCategory_50-54', 'AgeCategory_55-59',
        'AgeCategory_60-64', 'AgeCategory_65-69', 'AgeCategory_70-74',
        'AgeCategory_75-79', 'AgeCategory_80 or older')) #names to be fixed
-   Race = st.selectbox("Race", ('Race_Hispanic', 'Race_White', 'Race_Black', 'Race_American Indian/Alaskan Native', 'Race_Asian',  'Race_Other', ))
+   Race = st.selectbox("Race", ('Race_Hispanic', 'Race_White', 'Race_Black', 'Race_American Indian/Alaskan Native', 'Race_Asian',  'Race_Other'))
    f_height = st.slider('Height? (cm)', 50.0, 230.0, (160.0), step=1.0) #check standard measures
    f_weight = st.slider('Weight? (kg)', 35.0, 200.0, (65.0), step=1.0)  #check standard measures
    BMI = 10000*f_weight/(f_height)**2
-   GenHealth = st.selectbox("General Health", ('GenHealth_Excellent','GenHealth_Very good', 'GenHealth_Good','GenHealth_Fair', 'GenHealth_Poor' ))
+   GenHealth = st.selectbox("General Health", ('GenHealth_Excellent','GenHealth_Very good', 'GenHealth_Good','GenHealth_Fair', 'GenHealth_Poor'))
    PhysicalActivity = st.selectbox("Phisical Activity", ("Yes", "No"))
    SleepTime = st.slider('Sleep Time?', 1.0, 24.0, (7.0), step=1.0)  #check standard measures
    Smoking = int(st.checkbox('Smoking'))
@@ -102,7 +102,7 @@ for value in unique_values:
     df = df.append({feature: value, 'HeartDisease': percent}, ignore_index=True)
 # create the bar plot
 if feature == 'GenHealth':
-    sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax, order=["poor", "fair", "good", "very good", "excellent"])
+    sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax, order=['GenHealth_Poor', 'GenHealth_Fair', 'GenHealth_Good', 'GenHealth_Very good', 'GenHealth_Excellent'])
 else:
     sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
 ax.set(ylabel="Heart Disease (%)")
