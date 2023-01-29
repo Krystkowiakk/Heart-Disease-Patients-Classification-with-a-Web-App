@@ -111,7 +111,7 @@ for tick in a:
 ax.set_xticklabels(a)
 # #this part is for annotating the bars with the percentage
 for p in ax.containers[0].patches:
-    graph.annotate("%.2f%%" % f.get_height(), (f.get_x() + f.get_width() / 2., f.get_height()),
+    ax.annotate("%.2f%%" % f.get_height(), (f.get_x() + f.get_width() / 2., f.get_height()),
                  ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
                  textcoords='offset points')
 st.pyplot(fig)
