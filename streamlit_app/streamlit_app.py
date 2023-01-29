@@ -48,19 +48,19 @@ with st.sidebar.form("my_form"):
         input_data = {
             'BMI': [BMI],
             'Smoking': [Smoking],
-            'Alcohol Drinking': [AlcoholDrinking],
+            'AlcoholDrinking': [AlcoholDrinking],
             'Stroke': [Stroke],
-            'Difficulties while Walking': [DiffWalking],
+            'DiffWalking': [DiffWalking],
             'Sex': [Sex],
-            'Physical Activity': [PhysicalActivity],
-            'Sleep Time': [SleepTime],
+            'PhysicalActivity': [PhysicalActivity],
+            'SleepTime': [SleepTime],
             'Asthma': [Asthma],
-            'Kidney Disease': [KidneyDisease],
-            'Skin Cancer': [SkinCancer],
-            'Age Category': [AgeCategory],
+            'KidneyDisease': [KidneyDisease],
+            'SkinCancer': [SkinCancer],
+            'AgeCategory': [AgeCategory],
             'Race': [Race],
             'Diabetic': [Diabetic],
-            'General Health': [GenHealth]
+            'GenHealth': [GenHealth]
         }
         df_check = pd.DataFrame(data = input_data)
         dum_gen('AgeCategory', ['AgeCategory_18-24', 'AgeCategory_25-29', 'AgeCategory_30-34', 'AgeCategory_35-39', 'AgeCategory_40-44', 'AgeCategory_45-49', 'AgeCategory_50-54', 'AgeCategory_55-59', 'AgeCategory_60-64', 'AgeCategory_65-69', 'AgeCategory_70-74', 'AgeCategory_75-79', 'AgeCategory_80 or older'])
