@@ -114,7 +114,7 @@ st.pyplot(fig)
 st.subheader('Heart Disease vs Age & Lifestyle')
 st.caption('And how heart disease is releated to age and lifestyle?')
 
-col1, col2= st.columns(2)
+col1, col2, col3 = st.columns(3)
 
 with col1:
     show_smokers = st.checkbox("Smoking", value=False)
@@ -144,10 +144,9 @@ data_filtered_merged['heart_risk_perc'] = data_filtered_merged['counts_heart'] /
 graph = ax1.bar(data_filtered_merged['AgeCategory'],data_filtered_merged['heart_risk_perc'])
 
 ax1.set_ylabel("Heart Disease")
-ax1.set_yticklabels(['{:,.0%}'.format(y) for y in ax1.get_yticks()])
-
+if show_percentage:
+    ax1.set_yticklabels(['{:,.0%}'.format(y) for y in ax1.get_yticks()])
 st.pyplot()
-
 
 #bottom part checkbox showing raw data and target distribution
 show_data = st.checkbox('More about Data, Target Distribution &  Raw Data', value=False)
