@@ -132,18 +132,22 @@ if show_alcohol:
 else:
     data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
 
-fig, ax1 = plt.subplots(figsize=(10, 4))
-graph = sns.countplot(ax=ax1,x = 'AgeCategory' , data = data_filtered, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'], hue='HeartDisease')
-graph.set(ylabel="")
+data_filtered_hd = data_filtered[data_filtered['HeartDisease'] == 'Yes']
+age_group = data_filtered_hd.groupby('AgeCategory').size().reset_index(name='Counts')
+age_group['Percentage'] = age_group['Counts']/age_group['Counts'].sum()*100
+
+fig, ax = plt.subplots(figsize=(10, 4))
+graph = sns.barplot(x='AgeCategory', y='Percentage', data=age_group, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
+graph.set(ylabel="Percentage(%)")
 graph.set(yticklabels=[])
 
-total = float(len(data_filtered))
-for p in graph.patches:
-    percentage = '{:.1f}%'.format(100 * p.get_height()/total)
-    x = p.get_x() + p.get_width()/2
-    y = p.get_height()
-    graph.annotate(percentage, (x, y),ha='center')
+for p in graph.containers[0].patches:
+    graph.annotate("%.2f%%" % p.get_height(), (p.get_x() + p.get_width() / 2., p.get_height()),
+                 ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
+                 textcoords='offset points')
+
 st.pyplot(fig)
+
 
 
 #bottom part checkbox showing raw data and target distribution
