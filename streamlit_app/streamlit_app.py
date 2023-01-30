@@ -95,84 +95,82 @@ with st.sidebar.form("my_form"):
 
 image = Image.open('streamlit_app/i_1.png')
 
-left, right = st.columns(2)
 
-with left:
-    # heart disease and its relation to different features chart
-    st.image(image)
-    st.title('Heart Disease Indicators')
-    st.subheader('Heart Disease vs Different Factors')
-    feature = st.selectbox(
-    '',
-    ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
-    fig, ax = plt.subplots(figsize=(10, 4))
-    plt.subplots_adjust(top=1.3)
-    # create a new dataframe to calculate the percentages
-    unique_values = data[feature].unique()
-    df = pd.DataFrame(columns=[feature, 'HeartDisease'])
-    for value in unique_values:
-        sub_data = data[data[feature] == value]
-        count = len(sub_data)
-        hd_count = len(sub_data[sub_data['HeartDisease'] == 'Yes'])
-        percent = (hd_count / count) * 100
-        df = df.append({feature: value, 'HeartDisease': percent}, ignore_index=True)
-    # create the bar plot
-    if feature == 'GenHealth':
-        sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax, order=['Excellent', 'Very good', 'Good', 'Fair', 'Poor'])
-    else:
-        sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
-    ax.set(ylabel="Heart Disease (%)")
-    ax.set(yticklabels=[])
-    a = ax.get_xticklabels()
-    for tick in a:
-        if tick.get_text() == 'American Indian/Alaskan Native':
-            tick.set_text('Amer.Indian/Alaskan')
-    ax.set_xticklabels(a)
-    # #this part is for annotating the bars with the percentage
-    for f in ax.containers[0].patches:
-        ax.annotate("%.2f%%" % f.get_height(), (f.get_x() + f.get_width() / 2., f.get_height()),
-                    ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
+# heart disease and its relation to different features chart
+st.image(image)
+st.title('Heart Disease Indicators')
+st.subheader('Heart Disease vs Different Factors')
+feature = st.selectbox(
+   '',
+   ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
+fig, ax = plt.subplots(figsize=(10, 4))
+plt.subplots_adjust(top=1.3)
+# create a new dataframe to calculate the percentages
+unique_values = data[feature].unique()
+df = pd.DataFrame(columns=[feature, 'HeartDisease'])
+for value in unique_values:
+    sub_data = data[data[feature] == value]
+    count = len(sub_data)
+    hd_count = len(sub_data[sub_data['HeartDisease'] == 'Yes'])
+    percent = (hd_count / count) * 100
+    df = df.append({feature: value, 'HeartDisease': percent}, ignore_index=True)
+# create the bar plot
+if feature == 'GenHealth':
+    sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax, order=['Excellent', 'Very good', 'Good', 'Fair', 'Poor'])
+else:
+    sns.barplot(x=feature, y='HeartDisease', data=df, ax=ax)
+ax.set(ylabel="Heart Disease (%)")
+ax.set(yticklabels=[])
+a = ax.get_xticklabels()
+for tick in a:
+    if tick.get_text() == 'American Indian/Alaskan Native':
+        tick.set_text('Amer.Indian/Alaskan')
+ax.set_xticklabels(a)
+# #this part is for annotating the bars with the percentage
+for f in ax.containers[0].patches:
+    ax.annotate("%.2f%%" % f.get_height(), (f.get_x() + f.get_width() / 2., f.get_height()),
+                 ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
                  textcoords='offset points')
-    st.pyplot(fig)
+st.pyplot(fig)
 
-with right:
-    #plot age and lifestyle vs heart disease chart
-    st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
-    #checkboxes for filtering data
-    col1, col2= st.columns(2)
-    with col1:
-        show_smokers = st.checkbox("Smoking", value=False)
-    with col2:
-        show_alcohol = st.checkbox("Alcohol Consumption", value=False)
-    if show_smokers:
-        data_filtered = data[data['Smoking']=='Yes']
-    else:
-        data_filtered = data[data['Smoking']=='No']
-    if show_alcohol:
-        data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='Yes']
-    else:
-        data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
-    #prepare data for plotting
-    age_groups = data_filtered['AgeCategory'].unique()
-    df2 = pd.DataFrame(columns=['AgeCategory', 'Probability'])
-    for age_group in age_groups:
-        sub_data = data_filtered[data_filtered['AgeCategory'] == age_group]
-        total_count = len(sub_data)
-        hd_count = len(sub_data[sub_data['HeartDisease'] == 'Yes'])
-        probability = (hd_count / total_count) * 100
-        df2 = df2.append({'AgeCategory': age_group, 'Probability': probability}, ignore_index=True)
-    #plot the data
-    fig, ax = plt.subplots(figsize=(10, 4))
-    plt.subplots_adjust(top=1.3)
-    graph = sns.barplot(x='AgeCategory', y='Probability', data=df2, ax=ax, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
-    graph.set(ylabel="Heart Disease (%)")
-    graph.set(yticklabels=[])
-    #this part is for annotating the bars with the percentage
-    for p in graph.containers[0].patches:
-        graph.annotate("%.2f%%" % p.get_height(), (p.get_x() + p.get_width() / 2., p.get_height()),
-                    ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
-                    textcoords='offset points')
-    st.pyplot(fig)
+
+#plot age and lifestyle vs heart disease chart
+st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
+#checkboxes for filtering data
+col1, col2= st.columns(2)
+with col1:
+    show_smokers = st.checkbox("Smoking", value=False)
+with col2:
+    show_alcohol = st.checkbox("Alcohol Consumption", value=False)
+if show_smokers:
+    data_filtered = data[data['Smoking']=='Yes']
+else:
+    data_filtered = data[data['Smoking']=='No']
+if show_alcohol:
+    data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='Yes']
+else:
+    data_filtered = data_filtered[data_filtered['AlcoholDrinking']=='No']
+#prepare data for plotting
+age_groups = data_filtered['AgeCategory'].unique()
+df2 = pd.DataFrame(columns=['AgeCategory', 'Probability'])
+for age_group in age_groups:
+    sub_data = data_filtered[data_filtered['AgeCategory'] == age_group]
+    total_count = len(sub_data)
+    hd_count = len(sub_data[sub_data['HeartDisease'] == 'Yes'])
+    probability = (hd_count / total_count) * 100
+    df2 = df2.append({'AgeCategory': age_group, 'Probability': probability}, ignore_index=True)
+#plot the data
+fig, ax = plt.subplots(figsize=(10, 4))
+plt.subplots_adjust(top=1.3)
+graph = sns.barplot(x='AgeCategory', y='Probability', data=df2, ax=ax, order=['18-24', '25-29', '30-34', '35-39','40-44', '45-49', '50-54', '55-59', '60-64','65-69', '70-74', '75-79', '80 or older'])
+graph.set(ylabel="Heart Disease (%)")
+graph.set(yticklabels=[])
+#this part is for annotating the bars with the percentage
+for p in graph.containers[0].patches:
+    graph.annotate("%.2f%%" % p.get_height(), (p.get_x() + p.get_width() / 2., p.get_height()),
+                 ha='center', va='center', fontsize=11, color='black', xytext=(0, 10),
+                 textcoords='offset points')
+st.pyplot(fig)
 
 
 #bottom part checkbox showing raw data and target distribution
