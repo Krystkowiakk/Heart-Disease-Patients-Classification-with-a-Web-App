@@ -80,15 +80,13 @@ with st.sidebar.form("my_form"):
         model = pickle.load(open('streamlit_app/model.pkl', 'rb'))
         prediction = model.predict_proba(df_check_scal)
         if prediction[0][1] >= 0.08: #treshold adjusted during model tuning
-            st.write("Checking...")
-            time.sleep(1)
-            st.empty()
-            st.title("Better visit the doctor!")
+            with st.spinner('Wait for it...'):
+                time.sleep(5)
+                st.success("Better visit the doctor!")
         else:
-            st.write("Checking...")
-            time.sleep(1)
-            st.empty()
-            st.title("Seems like you are fine")
+            with st.spinner('Wait for it...'):
+                time.sleep(5)
+                st.success("Seems like you are fine")
         st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
 
 
