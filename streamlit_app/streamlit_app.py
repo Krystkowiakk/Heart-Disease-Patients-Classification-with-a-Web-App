@@ -8,7 +8,7 @@ import pickle
 #from sklearn.preprocessing import StandardScaler
 import matplotlib.ticker as mtick
 
-
+# set page configuration
 st.set_page_config(
    page_title="Heart Disease Indicators",
    page_icon="+",
@@ -16,11 +16,6 @@ st.set_page_config(
    initial_sidebar_state="expanded"
 )
 
-hide_menu_style = """
-        <style>
-        #MainMenu {visibility: hidden;}
-        </style>
-        """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 #data loading
@@ -194,5 +189,4 @@ if show_data:
     st.subheader('Raw Data')
     st.dataframe(data.drop(columns=['Unnamed: 0']))
 
-#link = "<h1 style='text-align: right'>MORE ABOUT THAT PROJECT AT MY <a href='https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App'>GITHUB</a></h1>"
-#st.markdown(link, unsafe_allow_html=True)
+st.markdown("<a href='https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App'>MORE ABOUT THAT PROJECT AT MY GITHUB</a>", unsafe_allow_html=True)
