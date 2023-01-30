@@ -81,11 +81,11 @@ with st.sidebar.form("my_form"):
         prediction = model.predict_proba(df_check_scal)
         if prediction[0][1] >= 0.08: #treshold adjusted during model tuning
             with st.spinner('checking...'):
-                time.sleep(1)
-                st.success("Better visit the doctor!")
+                time.sleep(0.5)
+                st.error("Better visit the doctor!")
         else:
             with st.spinner('checking...'):
-                time.sleep(1)
+                time.sleep(0.5)
                 st.success("Seems like you are fine")
         st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
 
@@ -94,9 +94,9 @@ with st.sidebar.form("my_form"):
 image = Image.open('streamlit_app/i_1.png')
 st.image(image)
 st.title('Heart Disease Indicators')
-st.subheader('Heart Disease and its relation to different features')
+st.subheader('Heart Disease vs Different Factors')
 feature = st.selectbox(
-   'This chart shows how likely a person is to have heart disease based on different characteristics. It helps us understand which factors may affect heart disease risk. By looking at this data, we can find patterns or risk factors that can help prevent or treat heart disease.',
+   '',
    ('Smoking', 'AlcoholDrinking', 'Stroke', 'DiffWalking', 'Sex', 'PhysicalActivity', 'Asthma', 'KidneyDisease', 'SkinCancer', 'Diabetic', 'GenHealth', 'Race'))
 fig, ax = plt.subplots(figsize=(10, 4))
 plt.subplots_adjust(top=1.3)
@@ -131,13 +131,12 @@ st.pyplot(fig)
 
 #plot age and lifestyle vs heart disease chart
 st.subheader('Heart Disease vs Age & Lifestyle') #change to diferent plot, keeep age, alco and smoke as percentage
-st.caption('And how heart disease is releated to age and lifestyle?')
 #checkboxes for filtering data
 col1, col2= st.columns(2)
 with col1:
     show_smokers = st.checkbox("Smoking", value=False)
 with col2:
-    show_alcohol = st.checkbox("Alcohol Drinking", value=False)
+    show_alcohol = st.checkbox("Alcohol Consumption", value=False)
 if show_smokers:
     data_filtered = data[data['Smoking']=='Yes']
 else:
