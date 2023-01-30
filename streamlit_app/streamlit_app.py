@@ -33,18 +33,21 @@ with st.sidebar.form("my_form"):
        'AgeCategory_30-34', 'AgeCategory_35-39', 'AgeCategory_40-44',
        'AgeCategory_45-49', 'AgeCategory_50-54', 'AgeCategory_55-59',
        'AgeCategory_60-64', 'AgeCategory_65-69', 'AgeCategory_70-74',
-       'AgeCategory_75-79', 'AgeCategory_80 or older')) #names to be fixed
+       'AgeCategory_75-79', 'AgeCategory_80 or older')) 
    Race = st.selectbox("Race", ('Race_Hispanic', 'Race_White', 'Race_Black', 'Race_American Indian/Alaskan Native', 'Race_Asian',  'Race_Other'))
-   f_height = st.slider('Height? (cm)', 50.0, 230.0, (160.0), step=1.0) #check standard measures
-   f_weight = st.slider('Weight? (kg)', 35.0, 200.0, (65.0), step=1.0)  #check standard measures
+   f_height = st.slider('Height? (cm)', 50.0, 230.0, (160.0), step=1.0)
+   f_weight = st.slider('Weight? (kg)', 35.0, 200.0, (65.0), step=1.0)
    BMI = 10000*f_weight/(f_height)**2
    GenHealth = st.selectbox("General Health", ('GenHealth_Excellent','GenHealth_Very good', 'GenHealth_Good','GenHealth_Fair', 'GenHealth_Poor'))
    PhysicalActivity = st.selectbox("Phisical Activity", ("Yes", "No"))
-   SleepTime = st.slider('Sleep Time?', 1.0, 24.0, (7.0), step=1.0)  #check standard measures
-   Smoking = int(st.checkbox('Smoking'))
-   AlcoholDrinking = int(st.checkbox('Alcohol Drinking'))
+   SleepTime = st.slider('Sleep Time?', 1.0, 24.0, (7.0), step=1.0)  
+   c1, c2= st.columns(2)
+    with col1:
+        Smoking = int(st.checkbox('Smoking'))
+    with col2:
+        AlcoholDrinking = int(st.checkbox('Alcohol Consumption'))
    Stroke = int(st.checkbox('Stroke'))
-   DiffWalking = int(st.checkbox('Difficulties with Walking'))
+   DiffWalking = int(st.checkbox('Walking Difficulties'))
    Asthma = int(st.checkbox('Asthma'))
    KidneyDisease = int(st.checkbox('Kidney Disease'))
    SkinCancer = int(st.checkbox('Skin Cancer'))
