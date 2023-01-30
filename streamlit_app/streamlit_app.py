@@ -16,8 +16,6 @@ st.set_page_config(
    initial_sidebar_state="expanded"
 )
 
-st.markdown(hide_menu_style, unsafe_allow_html=True)
-
 #data loading
 data = pd.read_csv('streamlit_app/out.csv')
 
