@@ -91,7 +91,7 @@ st.image(image)
 
 # heart disease and its relation to different features chart
 st.title('Heart Disease Indicators')
-st.caption('From Behavioural Risk Factor Surveillance System dataset.')
+st.markdown("<a href='https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App' style='color: black;'>MORE ABOUT THAT PROJECT AT MY GITHUB</a>", unsafe_allow_html=True)
 st.subheader('Heart Disease and its relation to different features')
 feature = st.selectbox(
    'This chart shows how likely a person is to have heart disease based on different characteristics. It helps us understand which factors may affect heart disease risk. By looking at this data, we can find patterns or risk factors that can help prevent or treat heart disease.',
@@ -187,4 +187,4 @@ if show_data:
     st.subheader('Raw Data')
     st.dataframe(data.drop(columns=['Unnamed: 0']))
 
-st.markdown("<a href='https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App'>MORE ABOUT THAT PROJECT AT MY GITHUB</a>", unsafe_allow_html=True)
+
