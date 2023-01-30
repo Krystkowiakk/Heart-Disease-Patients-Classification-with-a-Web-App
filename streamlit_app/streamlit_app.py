@@ -44,13 +44,14 @@ with st.sidebar.form("my_form"):
    c1, c2= st.columns(2)
    with c1:
         Smoking = int(st.checkbox('Smoking'))
+        Stroke = int(st.checkbox('Stroke'))
+        Asthma = int(st.checkbox('Asthma'))
+        SkinCancer = int(st.checkbox('Skin Cancer'))
+
    with c2:
         AlcoholDrinking = int(st.checkbox('Alcohol Consumption'))
-   Stroke = int(st.checkbox('Stroke'))
-   DiffWalking = int(st.checkbox('Walking Difficulties'))
-   Asthma = int(st.checkbox('Asthma'))
-   KidneyDisease = int(st.checkbox('Kidney Disease'))
-   SkinCancer = int(st.checkbox('Skin Cancer'))
+        DiffWalking = int(st.checkbox('Walking Difficulties'))
+        KidneyDisease = int(st.checkbox('Kidney Disease'))
    Diabetic = st.selectbox("Diabetic", ('Diabetic_No', 'Diabetic_No, borderline diabetes', 'Diabetic_Yes', 'Diabetic_Yes (during pregnancy)'))
    submitted = st.form_submit_button("Submit")
    if submitted:
