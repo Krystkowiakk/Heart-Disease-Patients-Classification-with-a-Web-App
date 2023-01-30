@@ -27,28 +27,6 @@ def dum_gen(col, lis):
 
 #sidebar form for user input form and heart disease prediction
 with st.sidebar.form("my_form"):
-   st.write("Check if you should visit the doctor!")
-   Sex = st.selectbox("Sex", ("Female", "Male"))
-   AgeCategory = st.selectbox("Age Category", ('AgeCategory_18-24', 'AgeCategory_25-29',
-       'AgeCategory_30-34', 'AgeCategory_35-39', 'AgeCategory_40-44',
-       'AgeCategory_45-49', 'AgeCategory_50-54', 'AgeCategory_55-59',
-       'AgeCategory_60-64', 'AgeCategory_65-69', 'AgeCategory_70-74',
-       'AgeCategory_75-79', 'AgeCategory_80 or older')) #names to be fixed
-   Race = st.selectbox("Race", ('Race_Hispanic', 'Race_White', 'Race_Black', 'Race_American Indian/Alaskan Native', 'Race_Asian',  'Race_Other'))
-   f_height = st.slider('Height? (cm)', 50.0, 230.0, (160.0), step=1.0) #check standard measures
-   f_weight = st.slider('Weight? (kg)', 35.0, 200.0, (65.0), step=1.0)  #check standard measures
-   BMI = 10000*f_weight/(f_height)**2
-   GenHealth = st.selectbox("General Health", ('GenHealth_Excellent','GenHealth_Very good', 'GenHealth_Good','GenHealth_Fair', 'GenHealth_Poor'))
-   PhysicalActivity = st.selectbox("Phisical Activity", ("Yes", "No"))
-   SleepTime = st.slider('Sleep Time?', 1.0, 24.0, (7.0), step=1.0)  #check standard measures
-   Smoking = int(st.checkbox('Smoking'))
-   AlcoholDrinking = int(st.checkbox('Alcohol Drinking'))
-   Stroke = int(st.checkbox('Stroke'))
-   DiffWalking = int(st.checkbox('Difficulties with Walking'))
-   Asthma = int(st.checkbox('Asthma'))
-   KidneyDisease = int(st.checkbox('Kidney Disease'))
-   SkinCancer = int(st.checkbox('Skin Cancer'))
-   Diabetic = st.selectbox("Diabetic", ('Diabetic_No', 'Diabetic_No, borderline diabetes', 'Diabetic_Yes', 'Diabetic_Yes (during pregnancy)'))
    submitted = st.form_submit_button("Submit")
    if submitted:
         input_data = {
@@ -81,13 +59,36 @@ with st.sidebar.form("my_form"):
         prediction = model.predict_proba(df_check_scal)
         if prediction[0][1] >= 0.08: #treshold adjusted during model tuning
             with st.spinner('Wait for it...'):
-                time.sleep(5)
+                time.sleep(1)
                 st.success("Better visit the doctor!")
         else:
             with st.spinner('Wait for it...'):
-                time.sleep(5)
+                time.sleep(1)
                 st.success("Seems like you are fine")
-        st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
+   st.write("Check if you should visit the doctor!")
+   
+   Sex = st.selectbox("Sex", ("Female", "Male"))
+   AgeCategory = st.selectbox("Age Category", ('AgeCategory_18-24', 'AgeCategory_25-29',
+       'AgeCategory_30-34', 'AgeCategory_35-39', 'AgeCategory_40-44',
+       'AgeCategory_45-49', 'AgeCategory_50-54', 'AgeCategory_55-59',
+       'AgeCategory_60-64', 'AgeCategory_65-69', 'AgeCategory_70-74',
+       'AgeCategory_75-79', 'AgeCategory_80 or older')) #names to be fixed
+   Race = st.selectbox("Race", ('Race_Hispanic', 'Race_White', 'Race_Black', 'Race_American Indian/Alaskan Native', 'Race_Asian',  'Race_Other'))
+   f_height = st.slider('Height? (cm)', 50.0, 230.0, (160.0), step=1.0) #check standard measures
+   f_weight = st.slider('Weight? (kg)', 35.0, 200.0, (65.0), step=1.0)  #check standard measures
+   BMI = 10000*f_weight/(f_height)**2
+   GenHealth = st.selectbox("General Health", ('GenHealth_Excellent','GenHealth_Very good', 'GenHealth_Good','GenHealth_Fair', 'GenHealth_Poor'))
+   PhysicalActivity = st.selectbox("Phisical Activity", ("Yes", "No"))
+   SleepTime = st.slider('Sleep Time?', 1.0, 24.0, (7.0), step=1.0)  #check standard measures
+   Smoking = int(st.checkbox('Smoking'))
+   AlcoholDrinking = int(st.checkbox('Alcohol Drinking'))
+   Stroke = int(st.checkbox('Stroke'))
+   DiffWalking = int(st.checkbox('Difficulties with Walking'))
+   Asthma = int(st.checkbox('Asthma'))
+   KidneyDisease = int(st.checkbox('Kidney Disease'))
+   SkinCancer = int(st.checkbox('Skin Cancer'))
+   Diabetic = st.selectbox("Diabetic", ('Diabetic_No', 'Diabetic_No, borderline diabetes', 'Diabetic_Yes', 'Diabetic_Yes (during pregnancy)'))
+   st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
 
 
 # heart disease and its relation to different features chart
