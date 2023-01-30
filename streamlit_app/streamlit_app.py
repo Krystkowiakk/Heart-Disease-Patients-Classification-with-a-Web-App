@@ -4,6 +4,7 @@ import streamlit as st
 import seaborn as sns
 from PIL import Image
 import pickle
+import time
 
 # set page configuration
 st.set_page_config(
@@ -79,9 +80,15 @@ with st.sidebar.form("my_form"):
         model = pickle.load(open('streamlit_app/model.pkl', 'rb'))
         prediction = model.predict_proba(df_check_scal)
         if prediction[0][1] >= 0.08: #treshold adjusted during model tuning
-            st.info('Better visit the doctor!', icon="ℹ️")
+            st.write("Checking...")
+            time.sleep(1)
+            st.empty()
+            st.title("Better visit the doctor!")
         else:
-            st.success("Seems like you are fine, icon="✅")
+            st.write("Checking...")
+            time.sleep(1)
+            st.empty()
+            st.title("Seems like you are fine)
         st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
 
 
