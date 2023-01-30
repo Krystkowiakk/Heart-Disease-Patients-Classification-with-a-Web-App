@@ -42,9 +42,9 @@ with st.sidebar.form("my_form"):
    PhysicalActivity = st.selectbox("Phisical Activity", ("Yes", "No"))
    SleepTime = st.slider('Sleep Time?', 1.0, 24.0, (7.0), step=1.0)  
    c1, c2= st.columns(2)
-   with col1:
+   with c1:
         Smoking = int(st.checkbox('Smoking'))
-   with col2:
+   with c2:
         AlcoholDrinking = int(st.checkbox('Alcohol Consumption'))
    Stroke = int(st.checkbox('Stroke'))
    DiffWalking = int(st.checkbox('Walking Difficulties'))
