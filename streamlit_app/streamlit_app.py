@@ -88,7 +88,7 @@ with st.sidebar.form("my_form"):
             st.write("Checking...")
             time.sleep(1)
             st.empty()
-            st.title("Seems like you are fine)
+            st.title("Seems like you are fine")
         st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
 
 
