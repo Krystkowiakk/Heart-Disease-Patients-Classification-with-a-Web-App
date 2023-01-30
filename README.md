@@ -3,7 +3,7 @@
 ###### project/month(7/7) focus: ENGENEERING
 #### Code - [GitHub](https://github.com/Krystkowiakk/Plastic-or-Glass---Image-Classification-with-Deep-Learning/blob/main/2.%20Krystkowiak_Krystian_Project_5_Plastic%20or%20Glass%20-%20Image%20Classification%20with%20Deep%20Learning.ipynb)
 #### Presentation [GitHub](https://github.com/Krystkowiakk/Plastic-or-Glass---Image-Classification-with-Deep-Learning/blob/main/Project%20Presentation/Krystkowiak_Krystian_Project_5_Plastic%20or%20Glass%20-%20Image%20Classification%20with%20Deep%20Learning.pdf)
-#### Web App [Streamlit](https://github.com/Krystkowiakk/Plastic-or-Glass---Image-Classification-with-Deep-Learning/blob/main/Project%20Presentation/Krystkowiak_Krystian_Project_5_Plastic%20or%20Glass%20-%20Image%20Classification%20with%20Deep%20Learning.pdf)
+#### Web App [Streamlit](https://krystkowiakk-heart-disease-pa-streamlit-appstreamlit-app-cjy0xv.streamlit.app)
 
 
 ABSTRACT
@@ -40,10 +40,8 @@ TOOLS
 
 COMMUNICATION
 
-5 minutes recorded video presentation with visualisation and web app with visually pleasing, informative charts, summarizing key findings: https://krystkowiakk-metis-project-7--streamlit-appstreamlit-app-xuz5iy.streamlit.app
+5 minutes recorded video presentation with visualisation and web app with visually pleasing, informative charts, summarizing key findings: https://krystkowiakk-heart-disease-pa-streamlit-appstreamlit-app-cjy0xv.streamlit.app/
 
 ![Heart Disease Patients Classification with a Web App](files/app_screen.png)
-
-![Heart Disease Patients Classification with a Web App](files/cover.jpg)
 
 
