@@ -1,12 +1,9 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import streamlit as st
-#import numpy as np
 import seaborn as sns
 from PIL import Image
 import pickle
-#from sklearn.preprocessing import StandardScaler
-import matplotlib.ticker as mtick
 
 # set page configuration
 st.set_page_config(
@@ -82,16 +79,16 @@ with st.sidebar.form("my_form"):
         model = pickle.load(open('streamlit_app/model.pkl', 'rb'))
         prediction = model.predict_proba(df_check_scal)
         if prediction[0][1] >= 0.08: #treshold adjusted during model tuning
-            st.title("Better visit the doctor!")
+            st.info('Better visit the doctor!', icon="ℹ️")
         else:
-            st.title("Seems like you are fine")
+            st.success("Seems like you are fine, icon="✅")
         st.write("Remember! That app is not created by the doctor but if prediction concerns you, maybe you should visit one.")
-image = Image.open('streamlit_app/i_1.png')
-st.image(image)
+
 
 # heart disease and its relation to different features chart
+image = Image.open('streamlit_app/i_1.png')
+st.image(image)
 st.title('Heart Disease Indicators')
-st.markdown("<a href='https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App' style='color: black;'>MORE ABOUT THAT PROJECT AT MY GITHUB</a>", unsafe_allow_html=True)
 st.subheader('Heart Disease and its relation to different features')
 feature = st.selectbox(
    'This chart shows how likely a person is to have heart disease based on different characteristics. It helps us understand which factors may affect heart disease risk. By looking at this data, we can find patterns or risk factors that can help prevent or treat heart disease.',
@@ -186,5 +183,6 @@ if show_data:
     st.pyplot(fig)
     st.subheader('Raw Data')
     st.dataframe(data.drop(columns=['Unnamed: 0']))
-
+    
+st.markdown("<a href='https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App' style='color: black;'>MORE ABOUT THAT PROJECT AT MY GITHUB</a>", unsafe_allow_html=True)
 
