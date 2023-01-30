@@ -3,7 +3,7 @@
 ###### project/month(7/7) focus: ENGENEERING
 #### Code - SQL/data preparation/modelling - [GitHub](https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App/blob/main/Krystkowiak_Krystian_Project_7_Heart%20Disease%20Patients%20Classification%20with%20a%20Web%20App%20-%20data%20and%20model%20preparation%20.ipynb)
 #### Code - Web App - [GitHub](https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App/blob/main/streamlit_app/streamlit_app.py)
-#### Presentation [GitHub](https://github.com/Krystkowiakk/Plastic-or-Glass---Image-Classification-with-Deep-Learning/blob/main/Project%20Presentation/Krystkowiak_Krystian_Project_5_Plastic%20or%20Glass%20-%20Image%20Classification%20with%20Deep%20Learning.pdf)
+#### Presentation [GitHub](https://github.com/Krystkowiakk/Heart-Disease-Patients-Classification-with-a-Web-App/blob/main/Project%20Presentation/Krystkowiak_Krystian_Project_7_Heart%20Disease%20Patients%20Classification%20with%20a%20Web%20App.pdf)
 #### Web App [Streamlit](https://krystkowiakk-heart-disease-pa-streamlit-appstreamlit-app-cjy0xv.streamlit.app)
 
 
